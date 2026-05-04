@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IRONCLAD AUTO — Hamilton, Ontario</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black:  #090909;
+    --dark:   #111111;
+    --steel:  #1C1C1C;
+    --red:    #CC2200;
+    --red2:   #E63300;
+    --silver: #A8A8A8;
+    --white:  #EDEDED;
+    --muted:  #606060;
+    --border: rgba(204,34,0,0.12);
+    --grid:   rgba(255,255,255,0.025);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Roboto Condensed', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 3.5rem;
+    background: rgba(9,9,9,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'Rajdhani', sans-serif; font-size: 1.6rem; font-weight: 700; letter-spacing: .1em; color: var(--white); text-decoration: none; }
+  .nav-logo span { color: var(--red); }
+  .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; }
+  .nav-links a:hover { color: var(--red); }
+  .nav-cta { background: var(--red) !important; color: var(--white) !important; padding: .5rem 1.3rem !important; font-weight: 700 !important; transition: background .2s !important; }
+  .nav-cta:hover { background: var(--red2) !important; }
+
+  .hero {
+    min-height: 100vh; position: relative;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 68px; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-left {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 5rem 3rem 5rem 3.5rem;
+  }
+  .hero-tag { font-size: .68rem; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; color: var(--red); margin-bottom: 1.4rem; display: flex; align-items: center; gap: .7rem; }
+  .hero-tag::before { content: ''; width: 2rem; height: 2px; background: var(--red); }
+  .hero h1 { font-family: 'Rajdhani', sans-serif; font-size: clamp(3.5rem, 6vw, 6rem); font-weight: 700; line-height: .95; letter-spacing: .04em; margin-bottom: 1.3rem; }
+  .hero h1 .red { color: var(--red); }
+  .hero h1 .out { -webkit-text-stroke: 1.5px var(--white); color: transparent; }
+  .hero-desc { font-size: .95rem; font-weight: 300; color: var(--muted); line-height: 1.75; max-width: 360px; margin-bottom: 2.2rem; }
+  .hero-btns { display: flex; gap: .8rem; flex-wrap: wrap; margin-bottom: 2.8rem; }
+  .btn-red { display: inline-flex; align-items: center; gap: .5rem; background: var(--red); color: var(--white); padding: .85rem 2rem; font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; font-family: 'Roboto Condensed', sans-serif; transition: background .2s, transform .15s; }
+  .btn-red:hover { background: var(--red2); transform: translateY(-2px); }
+  .btn-outline { display: inline-flex; align-items: center; gap: .5rem; background: transparent; color: var(--white); padding: .85rem 2rem; font-size: .78rem; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; border: 1px solid rgba(237,237,237,0.15); cursor: pointer; font-family: 'Roboto Condensed', sans-serif; transition: border-color .2s, color .2s; }
+  .btn-outline:hover { border-color: var(--red); color: var(--red); }
+  .hero-badges { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .hbadge { display: flex; align-items: center; gap: .5rem; font-size: .72rem; font-weight: 400; color: var(--muted); letter-spacing: .05em; }
+  .hbadge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); }
+
+  .hero-right {
+    position: relative; z-index: 1;
+    background: var(--steel);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-right::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(204,34,0,0.08) 0%, transparent 70%); }
+  .big-wrench { font-size: 12rem; line-height: 1; filter: drop-shadow(0 0 50px rgba(204,34,0,0.3)); animation: wrenchSpin 8s ease-in-out infinite alternate; }
+  @keyframes wrenchSpin { from { transform: rotate(-10deg) scale(0.95); } to { transform: rotate(10deg) scale(1.05); } }
+  .hero-right-label { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); font-family: 'Rajdhani', sans-serif; font-size: 1rem; letter-spacing: .3em; color: rgba(237,237,237,0.1); text-transform: uppercase; white-space: nowrap; }
+
+  .ticker { background: var(--red); padding: .75rem 0; overflow: hidden; white-space: nowrap; }
+  .ticker-inner { display: inline-flex; gap: 2rem; animation: tick 16s linear infinite; }
+  @keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .ticker span { font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: .2em; color: var(--white); }
+  .t-sep { color: rgba(237,237,237,0.35) !important; }
+
+  .services { padding: 7rem 3.5rem; }
+  .sec-tag { font-size: .68rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--red); margin-bottom: .7rem; display: flex; align-items: center; gap: .7rem; }
+  .sec-tag::before { content: ''; width: 1.5rem; height: 2px; background: var(--red); }
+  .sec-title { font-family: 'Rajdhani', sans-serif; font-size: clamp(2.2rem, 3.5vw, 3.5rem); font-weight: 700; letter-spacing: .04em; line-height: 1; color: var(--white); margin-bottom: 3rem; }
+  .sec-title .red { color: var(--red); }
+
+  .srv-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); }
+  .srv-row { background: var(--dark); padding: 1.6rem 2rem; display: flex; align-items: center; gap: 2rem; transition: background .2s; }
+  .srv-row:hover { background: #161616; }
+  .srv-icon { font-size: 1.8rem; width: 50px; flex-shrink: 0; text-align: center; }
+  .srv-info { flex: 1; }
+  .srv-name { font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: .04em; color: var(--white); margin-bottom: .2rem; }
+  .srv-desc { font-size: .82rem; font-weight: 300; color: var(--muted); line-height: 1.5; }
+  .srv-price { font-family: 'Rajdhani', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--red); flex-shrink: 0; }
+
+  .why { padding: 6rem 3.5rem; background: var(--steel); display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background-color: var(--border); }
+  .why-card { background: var(--dark); padding: 2.2rem 1.8rem; }
+  .why-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+  .why-title { font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: .05em; color: var(--white); margin-bottom: .5rem; }
+  .why-desc { font-size: .82rem; font-weight: 300; color: var(--muted); line-height: 1.65; }
+
+  .cta { background: var(--red); padding: 5rem 3.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+  .cta h2 { font-family: 'Rajdhani', sans-serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 700; letter-spacing: .04em; color: var(--white); }
+  .cta p { font-size: .88rem; color: rgba(237,237,237,0.65); margin-top: .4rem; }
+  .cta-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-white { display: inline-flex; align-items: center; gap: .5rem; background: var(--white); color: var(--red); padding: .9rem 2rem; font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; font-family: 'Roboto Condensed', sans-serif; transition: background .2s; }
+  .btn-white:hover { background: var(--black); color: var(--white); }
+  .btn-wout { display: inline-flex; align-items: center; gap: .5rem; background: transparent; color: var(--white); padding: .9rem 2rem; font-size: .78rem; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; border: 2px solid rgba(237,237,237,0.4); cursor: pointer; font-family: 'Roboto Condensed', sans-serif; transition: border-color .2s, background .2s; }
+  .btn-wout:hover { border-color: var(--white); background: rgba(237,237,237,0.1); }
+
+  footer { background: #060606; border-top: 1px solid var(--border); padding: 3rem 3.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
+  .f-logo { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; font-weight: 700; letter-spacing: .1em; color: var(--white); text-decoration: none; }
+  .f-logo span { color: var(--red); }
+  .f-info { font-size: .78rem; color: var(--muted); line-height: 1.85; }
+  .f-info a { color: var(--red); text-decoration: none; }
+  .f-credit { font-size: .72rem; color: rgba(96,96,96,0.5); }
+  .f-credit a { color: var(--red); text-decoration: none; opacity: .7; }
+
+  /* CHATBOT */
+  #chat-toggle { position: fixed; bottom: 2rem; right: 2rem; z-index: 200; width: 56px; height: 56px; background: var(--red); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 24px rgba(204,34,0,0.35); transition: background .2s, transform .2s; }
+  #chat-toggle:hover { background: var(--red2); transform: scale(1.06); }
+  .ico { width: 22px; height: 22px; } .ico-close { display: none; }
+  #chat-window { position: fixed; bottom: 5.5rem; right: 2rem; z-index: 200; width: 355px; max-height: 520px; background: var(--dark); border: 1px solid rgba(204,34,0,0.2); box-shadow: 0 12px 50px rgba(0,0,0,0.6); display: flex; flex-direction: column; opacity: 0; transform: translateY(14px) scale(.97); pointer-events: none; transition: opacity .25s, transform .25s; }
+  #chat-window.open { opacity:1; transform:translateY(0) scale(1); pointer-events:all; }
+  .c-header { background: var(--red); padding: .9rem 1.2rem; display: flex; align-items: center; gap: .9rem; }
+  .c-avatar { width: 36px; height: 36px; background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+  .c-name { font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; font-weight: 700; letter-spacing: .06em; color: var(--white); }
+  .c-status { font-size: .68rem; color: rgba(237,237,237,0.6); display:flex; align-items:center; gap:.4rem; }
+  .sdot { width:6px; height:6px; border-radius:50%; background:#4ade80; display:inline-block; }
+  #c-msgs { flex:1; overflow-y:auto; padding:1rem; display:flex; flex-direction:column; gap:.65rem; min-height:0; scrollbar-width:thin; scrollbar-color:var(--border) transparent; }
+  .msg { max-width:84%; padding:.62rem .95rem; font-size:.83rem; line-height:1.55; animation:pop .18s ease; }
+  @keyframes pop{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  .msg.bot { background:#1A1A1A; color:var(--white); align-self:flex-start; border-left:2px solid var(--red); }
+  .msg.user { background:var(--red); color:var(--white); align-self:flex-end; }
+  .msg.typing { background:#1A1A1A; align-self:flex-start; border-left:2px solid var(--red); padding:.8rem 1rem; }
+  .dots{display:flex;gap:4px;align-items:center;height:14px;}
+  .dots span{width:5px;height:5px;border-radius:50%;background:var(--red);animation:bop 1.2s infinite;}
+  .dots span:nth-child(2){animation-delay:.2s}.dots span:nth-child(3){animation-delay:.4s}
+  @keyframes bop{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+  .c-quick { padding:.5rem 1rem; display:flex; gap:.4rem; flex-wrap:wrap; border-top:1px solid rgba(204,34,0,0.1); }
+  .qb { font-size:.68rem; padding:.28rem .7rem; border:1px solid rgba(204,34,0,0.25); background:transparent; color:var(--red); cursor:pointer; font-family:'Roboto Condensed',sans-serif; transition:background .15s; white-space:nowrap; }
+  .qb:hover { background:rgba(204,34,0,0.1); }
+  .c-bar { display:flex; align-items:center; gap:.5rem; padding:.7rem 1rem; border-top:1px solid rgba(204,34,0,0.1); }
+  #c-input { flex:1; border:1px solid rgba(204,34,0,0.15); background:#111; padding:.5rem .85rem; font-size:.83rem; font-family:'Roboto Condensed',sans-serif; color:var(--white); outline:none; transition:border-color .2s; }
+  #c-input:focus { border-color:var(--red); }
+  #c-input::placeholder { color:var(--muted); }
+  #c-send { width:34px; height:34px; background:var(--red); border:none; cursor:pointer; flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:background .2s; }
+  #c-send:hover { background:var(--red2); }
+  #c-send svg { width:14px; height:14px; fill:none; stroke:white; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+
+  @media(max-width:900px){
+    nav{padding:1rem 1.5rem;} .nav-links{display:none;}
+    .hero{grid-template-columns:1fr;} .hero-left{padding:5rem 1.5rem 3rem;} .hero-right{height:45vw;min-height:200px;}
+    .big-wrench{font-size:6rem;}
+    .services{padding:4rem 1.5rem;} .srv-row{padding:1.2rem 1rem;gap:1rem;}
+    .why{grid-template-columns:1fr 1fr;padding:4rem 1.5rem;}
+    .cta{padding:4rem 1.5rem;flex-direction:column;}
+    footer{padding:2rem 1.5rem;flex-direction:column;align-items:flex-start;}
+    #chat-window{width:calc(100vw - 2rem);right:1rem;bottom:5rem;}
+    #chat-toggle{right:1rem;bottom:1rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">IRON<span>CLAD</span> AUTO</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="tel:+19055550111" class="nav-cta">Get a Quote</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-left">
+    <div class="hero-tag">Auto Repair · Hamilton, ON</div>
+    <h1>WE FIX<br><span class="red">CARS.</span><br><span class="out">NO</span><br>BS.</h1>
+    <p class="hero-desc">Honest diagnostics, fair prices, fast turnaround. Certified mechanics serving Hamilton for over 10 years. We tell you what's wrong — and only fix what needs fixing.</p>
+    <div class="hero-btns">
+      <a href="tel:+19055550111" class="btn-red">Get a Free Quote →</a>
+      <a href="#services" class="btn-outline">Our Services</a>
+    </div>
+    <div class="hero-badges">
+      <div class="hbadge"><div class="hbadge-dot"></div>Same-Day Service Available</div>
+      <div class="hbadge"><div class="hbadge-dot"></div>Free Diagnostics</div>
+      <div class="hbadge"><div class="hbadge-dot"></div>English & Spanish</div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="big-wrench">🔧</div>
+    <div class="hero-right-label">Certified · Trusted · Hamilton</div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>OIL CHANGE</span><span class="t-sep"> · </span><span>BRAKES</span><span class="t-sep"> · </span><span>TIRES</span><span class="t-sep"> · </span><span>ENGINE REPAIR</span><span class="t-sep"> · </span><span>TRANSMISSION</span><span class="t-sep"> · </span><span>AC SERVICE</span><span class="t-sep"> · </span><span>DIAGNOSTICS</span><span class="t-sep"> · </span>
+    <span>OIL CHANGE</span><span class="t-sep"> · </span><span>BRAKES</span><span class="t-sep"> · </span><span>TIRES</span><span class="t-sep"> · </span><span>ENGINE REPAIR</span><span class="t-sep"> · </span><span>TRANSMISSION</span><span class="t-sep"> · </span><span>AC SERVICE</span><span class="t-sep"> · </span><span>DIAGNOSTICS</span><span class="t-sep"> · </span>
+  </div>
+</div>
+
+<section class="services" id="services">
+  <div class="sec-tag">What we do</div>
+  <div class="sec-title">OUR <span class="red">SERVICES</span></div>
+  <div class="srv-list">
+    <div class="srv-row"><div class="srv-icon">🛢️</div><div class="srv-info"><div class="srv-name">Oil Change & Filter</div><div class="srv-desc">Conventional, synthetic blend or full synthetic. In and out in 30 minutes.</div></div><div class="srv-price">From $59</div></div>
+    <div class="srv-row"><div class="srv-icon">🛑</div><div class="srv-info"><div class="srv-name">Brake Service</div><div class="srv-desc">Pads, rotors, calipers and brake fluid flush. Free brake inspection with any service.</div></div><div class="srv-price">From $149</div></div>
+    <div class="srv-row"><div class="srv-icon">🔍</div><div class="srv-info"><div class="srv-name">Engine Diagnostics</div><div class="srv-desc">Check engine light? Full computer scan and written report. No charge if we do the repair.</div></div><div class="srv-price">Free / $89</div></div>
+    <div class="srv-row"><div class="srv-icon">❄️</div><div class="srv-info"><div class="srv-name">AC Service & Recharge</div><div class="srv-desc">Full AC system inspection, recharge and leak test. Ready before summer.</div></div><div class="srv-price">From $129</div></div>
+    <div class="srv-row"><div class="srv-icon">⚙️</div><div class="srv-info"><div class="srv-name">Transmission Service</div><div class="srv-desc">Fluid change, filter replacement, pan gasket. Prevent $3,000 repairs with a $199 service.</div></div><div class="srv-price">From $199</div></div>
+    <div class="srv-row"><div class="srv-icon">🔩</div><div class="srv-info"><div class="srv-name">Tire Change & Balancing</div><div class="srv-desc">Mount, balance and install. Winter/summer swap with storage available.</div></div><div class="srv-price">From $80/set</div></div>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="why-card"><span class="why-icon">🏆</span><div class="why-title">Certified Mechanics</div><div class="why-desc">ASE-certified technicians with 10+ years experience on domestic and import vehicles.</div></div>
+  <div class="why-card"><span class="why-icon">💬</span><div class="why-title">Bilingual Service</div><div class="why-desc">We speak English and Spanish. Explain your car problem however is most comfortable.</div></div>
+  <div class="why-card"><span class="why-icon">⚡</span><div class="why-title">Same-Day Service</div><div class="why-desc">Most repairs completed same day. We know you can't be without your car.</div></div>
+  <div class="why-card"><span class="why-icon">📋</span><div class="why-title">Written Estimates</div><div class="why-desc">Always get a written quote before we touch your car. No surprise charges. Ever.</div></div>
+</section>
+
+<section class="cta">
+  <div><h2>CAR TROUBLE?<br>WE'VE GOT YOU.</h2><p>Call now or chat with our assistant. Free quote in minutes.</p></div>
+  <div class="cta-btns">
+    <a href="tel:+19055550111" class="btn-white">📞 (905) 555-0111</a>
+    <a href="https://wa.me/19055550111" class="btn-wout">WhatsApp</a>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <a href="#" class="f-logo">IRON<span>CLAD</span> AUTO</a>
+    <div class="f-info" style="margin-top:.5rem">
+      88 Kenilworth Ave N, Hamilton ON · <a href="tel:+19055550111">(905) 555-0111</a><br>
+      Mon–Fri 8am–6pm · Sat 9am–4pm · Sunday closed
+    </div>
+  </div>
+  <div class="f-credit">Website by <a href="https://foundryai.live">Foundry AI</a></div>
+</footer>
+
+<button id="chat-toggle" onclick="toggleChat()">
+  <svg class="ico ico-chat" viewBox="0 0 24 24" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+  <svg class="ico ico-close" viewBox="0 0 24 24" fill="white"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+</button>
+
+<div id="chat-window">
+  <div class="c-header">
+    <div class="c-avatar">🔧</div>
+    <div><div class="c-name">MECH BOT — IRONCLAD AUTO</div><div class="c-status"><span class="sdot"></span> Online · Free quotes available</div></div>
+  </div>
+  <div id="c-msgs"></div>
+  <div class="c-quick" id="qwrap">
+    <button class="qb" onclick="sq('How much is an oil change?')">Oil Change</button>
+    <button class="qb" onclick="sq('My check engine light is on')">Check Engine</button>
+    <button class="qb" onclick="sq('What are your hours?')">Hours</button>
+    <button class="qb" onclick="sq('¿Hablan español?')">Español</button>
+  </div>
+  <div class="c-bar">
+    <input id="c-input" type="text" placeholder="Describe your car problem..." autocomplete="off" onkeydown="if(event.key==='Enter')send()"/>
+    <button id="c-send" onclick="send()">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+const SYS = `You are "Mech Bot", the virtual assistant for Ironclad Auto in Hamilton, Ontario, Canada.
+
+SHOP INFO:
+- Name: Ironclad Auto
+- Address: 88 Kenilworth Ave N, Hamilton ON
+- Phone: (905) 555-0111
+- WhatsApp: (905) 555-0111
+- Hours: Mon–Fri 8am–6pm | Sat 9am–4pm | Sunday closed
+- Languages: English and Spanish
+- ASE-certified mechanics, 10+ years experience
+
+SERVICES & PRICES:
+- Oil Change: from $59 (conventional, synthetic blend, or full synthetic)
+- Brake Service: from $149 (free brake inspection with any service)
+- Engine Diagnostics: Free if we do the repair, $89 standalone
+- AC Service & Recharge: from $129
+- Transmission Service: from $199
+- Tire Change & Balancing: from $80/set (winter/summer swap with storage)
+- General repairs: free written estimate before any work starts
+
+POLICIES:
+- Same-day service available for most repairs
+- Written estimate always provided before work begins
+- No surprise charges — ever
+- Free brake inspection with any service
+
+PERSONALITY:
+- Direct, honest, no-nonsense — like a trustworthy mechanic
+- Short replies: 2-3 sentences max
+- Reply in the language the customer writes in (English or Spanish)
+- Use 🔧 emoji occasionally
+- For any diagnosis, say: "Bring it in — we'll check it out and give you a free written estimate"
+- Never guess at repair costs beyond the listed services`;
+
+let msgs=[], open=false;
+function toggleChat(){
+  open=!open;
+  document.getElementById('chat-window').classList.toggle('open',open);
+  document.querySelector('.ico-chat').style.display=open?'none':'block';
+  document.querySelector('.ico-close').style.display=open?'block':'none';
+  if(open&&msgs.length===0)
+    setTimeout(()=>addBot("Hey — Mech Bot here 🔧 Tell me what's going on with your car and I'll help you out. Free estimates always."),300);
+}
+function sq(t){document.getElementById('c-input').value=t;send();}
+function addBot(t){const d=document.createElement('div');d.className='msg bot';d.textContent=t;document.getElementById('c-msgs').appendChild(d);sc();}
+function addUser(t){const d=document.createElement('div');d.className='msg user';d.textContent=t;document.getElementById('c-msgs').appendChild(d);sc();}
+function addTyp(){const d=document.createElement('div');d.className='msg typing';d.id='typ';d.innerHTML='<div class="dots"><span></span><span></span><span></span></div>';document.getElementById('c-msgs').appendChild(d);sc();}
+function remTyp(){const t=document.getElementById('typ');if(t)t.remove();}
+function sc(){const m=document.getElementById('c-msgs');m.scrollTop=m.scrollHeight;}
+async function send(){
+  const inp=document.getElementById('c-input');
+  const text=inp.value.trim();if(!text)return;
+  document.getElementById('qwrap').style.display='none';
+  addUser(text);inp.value='';
+  msgs.push({role:'user',content:text});
+  addTyp();
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':'TU_API_KEY_AQUI','anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:250,system:SYS,messages:msgs})
+    });
+    const data=await res.json();
+    if(data.error)throw new Error(data.error.message);
+    const reply=data.content[0].text;
+    msgs.push({role:'assistant',content:reply});
+    remTyp();addBot(reply);
+  }catch(e){
+    remTyp();
+    addBot('Tech issue on my end. Call us at (905) 555-0111 🔧');
+  }
+}
+</script>
+</body>
+</html>

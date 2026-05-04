@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IRONYARD GYM — Hamilton, Ontario</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black:   #070707;
+    --dark:    #0F0F0F;
+    --card:    #141414;
+    --orange:  #F05A1A;
+    --orange2: #FF7A3D;
+    --yellow:  #FFD000;
+    --white:   #EFEFEF;
+    --muted:   #5A5A5A;
+    --border:  rgba(240,90,26,0.12);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 3.5rem;
+    background: rgba(7,7,7,0.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.5rem; letter-spacing: .08em;
+    color: var(--white); text-decoration: none;
+  }
+  .nav-logo span { color: var(--orange); }
+  .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: .73rem; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; font-weight: 500;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--orange); }
+  .nav-join {
+    background: var(--orange) !important; color: var(--black) !important;
+    padding: .55rem 1.4rem !important; font-weight: 700 !important;
+    font-size: .73rem !important; letter-spacing: .1em !important;
+    transition: background .2s !important;
+  }
+  .nav-join:hover { background: var(--orange2) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex; align-items: center;
+    overflow: hidden;
+    padding-top: 70px;
+  }
+  /* Animated grid background */
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(240,90,26,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(240,90,26,0.05) 1px, transparent 1px);
+    background-size: 80px 80px;
+    animation: gridMove 20s linear infinite;
+  }
+  @keyframes gridMove {
+    from { background-position: 0 0; }
+    to { background-position: 80px 80px; }
+  }
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(240,90,26,0.12) 0%, transparent 70%);
+    right: -100px; top: 50%; transform: translateY(-50%);
+    pointer-events: none;
+  }
+  .hero-content {
+    position: relative;
+    padding: 5rem 3.5rem;
+    max-width: 700px;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: .6rem;
+    font-size: .68rem; font-weight: 600; letter-spacing: .22em;
+    text-transform: uppercase; color: var(--orange);
+    margin-bottom: 1.5rem;
+  }
+  .tag-bar { width: 1.8rem; height: 2px; background: var(--orange); }
+  .hero h1 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(4.5rem, 9vw, 9rem);
+    line-height: .92; letter-spacing: .01em;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 .orange { color: var(--orange); }
+  .hero h1 .outline {
+    -webkit-text-stroke: 2px var(--white);
+    color: transparent;
+  }
+  .hero h1 .outline-o {
+    -webkit-text-stroke: 2px var(--orange);
+    color: transparent;
+  }
+  .hero-desc {
+    font-size: 1rem; font-weight: 300;
+    color: var(--muted); line-height: 1.75;
+    max-width: 400px; margin-bottom: 2.5rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+  .btn-orange {
+    display: inline-flex; align-items: center; gap: .6rem;
+    background: var(--orange); color: var(--black);
+    padding: 1rem 2.2rem; font-size: .8rem;
+    font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    text-decoration: none; border: none; cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: background .2s, transform .15s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 10px 100%);
+  }
+  .btn-orange:hover { background: var(--orange2); transform: translateY(-2px); }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: .6rem;
+    background: transparent; color: var(--white);
+    padding: 1rem 2.2rem; font-size: .8rem;
+    font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+    text-decoration: none; border: 1px solid rgba(239,239,239,0.15);
+    cursor: pointer; font-family: 'Inter', sans-serif;
+    transition: border-color .2s, color .2s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 10px 100%);
+  }
+  .btn-ghost:hover { border-color: var(--orange); color: var(--orange); }
+
+  .hero-counters {
+    display: flex; gap: 3rem; flex-wrap: wrap;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(239,239,239,0.06);
+  }
+  .counter { }
+  .counter-num {
+    font-family: 'Anton', sans-serif;
+    font-size: 2.5rem; color: var(--orange); line-height: 1;
+  }
+  .counter-label {
+    font-size: .68rem; font-weight: 500; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--muted); margin-top: .3rem;
+  }
+
+  /* Right side visual */
+  .hero-visual {
+    position: absolute; right: 0; top: 0; bottom: 0; width: 45%;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center; gap: 1.5rem;
+    padding: 6rem 3rem;
+  }
+  .big-icon { font-size: 10rem; line-height: 1; filter: drop-shadow(0 0 40px rgba(240,90,26,0.4)); }
+  .hero-badge {
+    background: var(--orange);
+    color: var(--black);
+    font-family: 'Anton', sans-serif;
+    font-size: 1.1rem; letter-spacing: .1em;
+    padding: .6rem 1.5rem;
+    clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+  }
+
+  /* ── TICKER ── */
+  .ticker {
+    background: var(--orange);
+    padding: .75rem 0; overflow: hidden; white-space: nowrap;
+  }
+  .ticker-inner {
+    display: inline-flex; gap: 2rem;
+    animation: tick 14s linear infinite;
+  }
+  @keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .ticker span {
+    font-family: 'Anton', sans-serif;
+    font-size: .95rem; letter-spacing: .2em;
+    color: var(--black);
+  }
+  .t-sep { color: rgba(7,7,7,0.3) !important; }
+
+  /* ── MEMBERSHIPS ── */
+  .memberships { padding: 7rem 3.5rem; }
+  .sec-tag {
+    font-size: .68rem; font-weight: 600; letter-spacing: .22em;
+    text-transform: uppercase; color: var(--orange);
+    margin-bottom: .8rem; display: flex; align-items: center; gap: .7rem;
+  }
+  .sec-tag::before { content:''; width:1.5rem; height:2px; background:var(--orange); }
+  .sec-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    letter-spacing: .03em; line-height: 1;
+    color: var(--white); margin-bottom: 3.5rem;
+  }
+  .sec-title .orange { color: var(--orange); }
+
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin-bottom: 2rem; }
+  .plan {
+    background: var(--card);
+    padding: 2.5rem 2rem;
+    position: relative; overflow: hidden;
+    transition: background .2s;
+  }
+  .plan:hover { background: #191919; }
+  .plan.featured { background: var(--orange); }
+  .plan.featured:hover { background: var(--orange2); }
+  .plan-tag {
+    font-size: .62rem; font-weight: 700; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--orange);
+    margin-bottom: 1.2rem;
+  }
+  .plan.featured .plan-tag { color: rgba(7,7,7,0.6); }
+  .plan-name {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.8rem; letter-spacing: .04em;
+    color: var(--white); margin-bottom: .3rem;
+  }
+  .plan.featured .plan-name { color: var(--black); }
+  .plan-price {
+    font-family: 'Anton', sans-serif;
+    font-size: 3.5rem; color: var(--orange); line-height: 1;
+    margin-bottom: .2rem;
+  }
+  .plan.featured .plan-price { color: var(--black); }
+  .plan-period { font-size: .75rem; color: var(--muted); margin-bottom: 1.8rem; }
+  .plan.featured .plan-period { color: rgba(7,7,7,0.5); }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: .7rem; margin-bottom: 2rem; }
+  .plan-features li {
+    font-size: .83rem; color: var(--muted);
+    display: flex; align-items: center; gap: .7rem;
+  }
+  .plan.featured .plan-features li { color: rgba(7,7,7,0.7); }
+  .plan-features li::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--orange); flex-shrink: 0;
+  }
+  .plan.featured .plan-features li::before { background: var(--black); }
+  .plan-cta {
+    display: block; width: 100%; text-align: center;
+    padding: .85rem; font-size: .78rem; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    font-family: 'Inter', sans-serif;
+    border: none; cursor: pointer; text-decoration: none;
+    transition: background .2s, color .2s;
+  }
+  .plan-cta.dark { background: var(--orange); color: var(--black); }
+  .plan-cta.dark:hover { background: var(--orange2); }
+  .plan-cta.light { background: transparent; color: var(--orange); border: 1px solid var(--orange); }
+  .plan-cta.light:hover { background: var(--orange); color: var(--black); }
+  .plan-cta.invert { background: var(--black); color: var(--white); }
+  .plan-cta.invert:hover { background: #1A1A1A; }
+
+  /* ── CLASSES ── */
+  .classes { padding: 6rem 3.5rem; background: var(--dark); }
+  .classes-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 1px; background: var(--border);
+    margin-top: 3rem;
+  }
+  .class-card {
+    background: var(--card);
+    padding: 2rem;
+    display: flex; gap: 1.5rem;
+    transition: background .2s;
+  }
+  .class-card:hover { background: #171717; }
+  .class-icon {
+    font-size: 2.5rem; flex-shrink: 0;
+    width: 60px; height: 60px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .class-name {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.3rem; letter-spacing: .04em;
+    color: var(--white); margin-bottom: .3rem;
+  }
+  .class-time { font-size: .72rem; font-weight: 600; letter-spacing: .1em; color: var(--orange); text-transform: uppercase; margin-bottom: .5rem; }
+  .class-desc { font-size: .82rem; color: var(--muted); line-height: 1.65; }
+  .class-level {
+    display: inline-block; margin-top: .6rem;
+    font-size: .62rem; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; padding: .2rem .6rem;
+    border: 1px solid rgba(240,90,26,0.3); color: var(--orange);
+  }
+
+  /* ── CTA STRIP ── */
+  .cta-strip {
+    background: var(--orange);
+    padding: 5rem 3.5rem;
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+  }
+  .cta-strip h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    letter-spacing: .04em; line-height: 1.05;
+    color: var(--black);
+  }
+  .cta-strip p { font-size: .9rem; color: rgba(7,7,7,0.6); margin-top: .5rem; }
+  .cta-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-black {
+    display: inline-flex; align-items: center; gap: .6rem;
+    background: var(--black); color: var(--white);
+    padding: 1rem 2.2rem; font-size: .8rem;
+    font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    text-decoration: none; border: none; cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 10px 100%);
+    transition: background .2s;
+  }
+  .btn-black:hover { background: #1A1A1A; }
+  .btn-blk-out {
+    display: inline-flex; align-items: center; gap: .6rem;
+    background: transparent; color: var(--black);
+    padding: 1rem 2.2rem; font-size: .8rem;
+    font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+    text-decoration: none; border: 2px solid var(--black);
+    cursor: pointer; font-family: 'Inter', sans-serif;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 10px 100%);
+    transition: background .2s, color .2s;
+  }
+  .btn-blk-out:hover { background: var(--black); color: var(--white); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #040404;
+    border-top: 1px solid rgba(240,90,26,0.08);
+    padding: 3rem 3.5rem;
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 1.5rem;
+  }
+  .f-logo {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.4rem; letter-spacing: .08em;
+    color: var(--white); text-decoration: none;
+  }
+  .f-logo span { color: var(--orange); }
+  .f-info { font-size: .78rem; color: var(--muted); line-height: 1.85; }
+  .f-info a { color: var(--orange); text-decoration: none; }
+  .f-credit { font-size: .72rem; color: rgba(90,90,90,0.5); }
+  .f-credit a { color: var(--orange); text-decoration: none; opacity: .7; }
+
+  /* ══════════ CHATBOT ══════════ */
+  #chat-toggle {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
+    width: 58px; height: 58px;
+    background: var(--orange); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 28px rgba(240,90,26,0.4);
+    transition: background .2s, transform .2s;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%);
+  }
+  #chat-toggle:hover { background: var(--orange2); transform: scale(1.06); }
+  .ico { width: 22px; height: 22px; }
+  .ico-close { display: none; }
+
+  #chat-window {
+    position: fixed; bottom: 5.5rem; right: 2rem; z-index: 200;
+    width: 360px; max-height: 530px;
+    background: var(--dark);
+    border: 1px solid rgba(240,90,26,0.2);
+    box-shadow: 0 12px 50px rgba(0,0,0,0.6);
+    display: flex; flex-direction: column;
+    opacity: 0; transform: translateY(14px) scale(.97);
+    pointer-events: none;
+    transition: opacity .25s, transform .25s;
+  }
+  #chat-window.open { opacity:1; transform:translateY(0) scale(1); pointer-events:all; }
+
+  .c-header {
+    background: var(--orange);
+    padding: .9rem 1.2rem;
+    display: flex; align-items: center; gap: .9rem;
+  }
+  .c-avatar {
+    width: 38px; height: 38px;
+    background: rgba(7,7,7,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; flex-shrink: 0;
+  }
+  .c-name { font-family: 'Anton', sans-serif; font-size: 1.1rem; letter-spacing: .06em; color: var(--black); }
+  .c-status { font-size: .68rem; color: rgba(7,7,7,0.55); display:flex; align-items:center; gap:.4rem; }
+  .sdot { width:6px; height:6px; border-radius:50%; background: var(--black); opacity:.4; display:inline-block; }
+
+  #c-msgs {
+    flex:1; overflow-y:auto; padding:1rem;
+    display:flex; flex-direction:column; gap:.65rem; min-height:0;
+    scrollbar-width:thin; scrollbar-color:rgba(240,90,26,0.15) transparent;
+  }
+  .msg {
+    max-width:84%; padding:.65rem 1rem;
+    font-size:.83rem; line-height:1.55;
+    animation: pop .18s ease;
+  }
+  @keyframes pop{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  .msg.bot { background:#1A1A1A; color:var(--white); align-self:flex-start; border-left:2px solid var(--orange); }
+  .msg.user { background:var(--orange); color:var(--black); align-self:flex-end; font-weight:500; }
+  .msg.typing { background:#1A1A1A; align-self:flex-start; border-left:2px solid var(--orange); padding:.85rem 1rem; }
+  .dots{display:flex;gap:4px;align-items:center;height:14px;}
+  .dots span{width:5px;height:5px;border-radius:50%;background:var(--orange);animation:bop 1.2s infinite;}
+  .dots span:nth-child(2){animation-delay:.2s}.dots span:nth-child(3){animation-delay:.4s}
+  @keyframes bop{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+
+  .c-quick{
+    padding:.55rem 1rem;display:flex;gap:.4rem;flex-wrap:wrap;
+    border-top:1px solid rgba(240,90,26,0.1);
+  }
+  .qb{
+    font-size:.68rem;padding:.28rem .7rem;
+    border:1px solid rgba(240,90,26,0.25);
+    background:transparent;color:var(--orange);
+    cursor:pointer;font-family:'Inter',sans-serif;font-weight:500;
+    transition:background .15s;white-space:nowrap;
+  }
+  .qb:hover{background:rgba(240,90,26,0.1);}
+
+  .c-bar{
+    display:flex;align-items:center;gap:.5rem;
+    padding:.75rem 1rem;border-top:1px solid rgba(240,90,26,0.1);
+  }
+  #c-input{
+    flex:1;border:1px solid rgba(240,90,26,0.15);
+    background:#111;padding:.5rem .85rem;
+    font-size:.83rem;font-family:'Inter',sans-serif;
+    color:var(--white);outline:none;transition:border-color .2s;
+  }
+  #c-input:focus{border-color:var(--orange);}
+  #c-input::placeholder{color:var(--muted);}
+  #c-send{
+    width:34px;height:34px;background:var(--orange);
+    border:none;cursor:pointer;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;transition:background .2s;
+  }
+  #c-send:hover{background:var(--orange2);}
+  #c-send svg{width:14px;height:14px;fill:none;stroke:var(--black);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:900px){
+    nav{padding:1rem 1.5rem;}
+    .nav-links{display:none;}
+    .hero-content{padding:5rem 1.5rem 3rem;}
+    .hero-visual{display:none;}
+    .memberships{padding:4rem 1.5rem;}
+    .plans{grid-template-columns:1fr;}
+    .classes{padding:4rem 1.5rem;}
+    .classes-grid{grid-template-columns:1fr;}
+    .cta-strip{padding:4rem 1.5rem;flex-direction:column;}
+    footer{padding:2rem 1.5rem;flex-direction:column;align-items:flex-start;}
+    #chat-window{width:calc(100vw - 2rem);right:1rem;bottom:5rem;}
+    #chat-toggle{right:1rem;bottom:1rem;}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">IRON<span>YARD</span></a>
+  <ul class="nav-links">
+    <li><a href="#memberships">Memberships</a></li>
+    <li><a href="#classes">Classes</a></li>
+    <li><a href="tel:+19055550133" class="nav-join">Join Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag"><span class="tag-bar"></span>Hamilton's #1 Gym · Est. 2017</div>
+    <h1>
+      NO<br>
+      <span class="orange">EXCUSES.</span><br>
+      <span class="outline">ONLY</span><br>
+      <span class="outline-o">GAINS.</span>
+    </h1>
+    <p class="hero-desc">Hamilton's most intense training facility. State-of-the-art equipment, world-class coaches, and a community that pushes you beyond your limits.</p>
+    <div class="hero-btns">
+      <a href="#memberships" class="btn-orange">Start Free Trial →</a>
+      <a href="#classes" class="btn-ghost">View Classes</a>
+    </div>
+    <div class="hero-counters">
+      <div class="counter">
+        <div class="counter-num">1,200+</div>
+        <div class="counter-label">Active Members</div>
+      </div>
+      <div class="counter">
+        <div class="counter-num">24/7</div>
+        <div class="counter-label">Access</div>
+      </div>
+      <div class="counter">
+        <div class="counter-num">15+</div>
+        <div class="counter-label">Classes/Week</div>
+      </div>
+      <div class="counter">
+        <div class="counter-num">EN·ES</div>
+        <div class="counter-label">Languages</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="big-icon">🏋️</div>
+    <div class="hero-badge">OPEN 24/7</div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>POWERLIFTING</span><span class="t-sep"> · </span>
+    <span>HIIT</span><span class="t-sep"> · </span>
+    <span>BOXING</span><span class="t-sep"> · </span>
+    <span>SPIN</span><span class="t-sep"> · </span>
+    <span>YOGA</span><span class="t-sep"> · </span>
+    <span>PERSONAL TRAINING</span><span class="t-sep"> · </span>
+    <span>NUTRITION COACHING</span><span class="t-sep"> · </span>
+    <span>POWERLIFTING</span><span class="t-sep"> · </span>
+    <span>HIIT</span><span class="t-sep"> · </span>
+    <span>BOXING</span><span class="t-sep"> · </span>
+    <span>SPIN</span><span class="t-sep"> · </span>
+    <span>YOGA</span><span class="t-sep"> · </span>
+    <span>PERSONAL TRAINING</span><span class="t-sep"> · </span>
+    <span>NUTRITION COACHING</span><span class="t-sep"> · </span>
+  </div>
+</div>
+
+<!-- MEMBERSHIPS -->
+<section class="memberships" id="memberships">
+  <div class="sec-tag">Choose your plan</div>
+  <div class="sec-title">MEMBERSHIP <span class="orange">PLANS</span></div>
+  <div class="plans">
+    <div class="plan">
+      <div class="plan-tag">Starter</div>
+      <div class="plan-name">BASIC</div>
+      <div class="plan-price">$39</div>
+      <div class="plan-period">per month · cancel anytime</div>
+      <ul class="plan-features">
+        <li>Full gym floor access</li>
+        <li>Locker room & showers</li>
+        <li>2 group classes/month</li>
+        <li>24/7 keycard access</li>
+      </ul>
+      <a href="tel:+19055550133" class="plan-cta light">Get Started</a>
+    </div>
+    <div class="plan featured">
+      <div class="plan-tag">🔥 Most Popular</div>
+      <div class="plan-name">ELITE</div>
+      <div class="plan-price">$69</div>
+      <div class="plan-period">per month · cancel anytime</div>
+      <ul class="plan-features">
+        <li>Everything in Basic</li>
+        <li>Unlimited group classes</li>
+        <li>1 PT session/month</li>
+        <li>Nutrition tracking app</li>
+        <li>Guest pass (1/month)</li>
+      </ul>
+      <a href="tel:+19055550133" class="plan-cta invert">Get Elite</a>
+    </div>
+    <div class="plan">
+      <div class="plan-tag">Results-Focused</div>
+      <div class="plan-name">PRO</div>
+      <div class="plan-price">$119</div>
+      <div class="plan-period">per month · cancel anytime</div>
+      <ul class="plan-features">
+        <li>Everything in Elite</li>
+        <li>4 PT sessions/month</li>
+        <li>Custom meal plan</li>
+        <li>Body composition scans</li>
+        <li>Priority class booking</li>
+      </ul>
+      <a href="tel:+19055550133" class="plan-cta light">Go Pro</a>
+    </div>
+  </div>
+  <p style="text-align:center;font-size:.78rem;color:var(--muted);margin-top:1.2rem">
+    🎯 First 7 days FREE — no credit card required. Walk in or call <a href="tel:+19055550133" style="color:var(--orange)">(905) 555-0133</a>
+  </p>
+</section>
+
+<!-- CLASSES -->
+<section class="classes" id="classes">
+  <div class="sec-tag">Weekly schedule</div>
+  <div class="sec-title">GROUP <span class="orange">CLASSES</span></div>
+  <div class="classes-grid">
+    <div class="class-card">
+      <div class="class-icon">🥊</div>
+      <div>
+        <div class="class-name">Boxing HIIT</div>
+        <div class="class-time">Mon, Wed, Fri · 6:00 AM & 6:00 PM</div>
+        <div class="class-desc">High-intensity boxing circuits. Burn up to 800 calories per session. No experience needed.</div>
+        <span class="class-level">All Levels</span>
+      </div>
+    </div>
+    <div class="class-card">
+      <div class="class-icon">🚴</div>
+      <div>
+        <div class="class-name">Spin Cycle</div>
+        <div class="class-time">Tue, Thu · 7:00 AM & 5:30 PM</div>
+        <div class="class-desc">45 minutes of rhythm-based indoor cycling. Cardio at its most addictive.</div>
+        <span class="class-level">Beginner Friendly</span>
+      </div>
+    </div>
+    <div class="class-card">
+      <div class="class-icon">🏋️</div>
+      <div>
+        <div class="class-name">Powerlifting Club</div>
+        <div class="class-time">Mon, Thu, Sat · 7:00 AM</div>
+        <div class="class-desc">Squat, bench, deadlift — coached by certified powerlifting coaches. Competition prep available.</div>
+        <span class="class-level">Intermediate–Advanced</span>
+      </div>
+    </div>
+    <div class="class-card">
+      <div class="class-icon">🧘</div>
+      <div>
+        <div class="class-name">Yoga & Mobility</div>
+        <div class="class-time">Wed, Sun · 9:00 AM</div>
+        <div class="class-desc">Recovery-focused yoga and mobility work. Essential for serious athletes and beginners alike.</div>
+        <span class="class-level">All Levels</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-strip">
+  <div class="cta-left">
+    <h2>STOP WAITING.<br>START LIFTING.</h2>
+    <p>First week free. No contracts. No excuses. Hamilton is waiting for you.</p>
+  </div>
+  <div class="cta-btns">
+    <a href="tel:+19055550133" class="btn-black">📞 (905) 555-0133</a>
+    <a href="https://wa.me/19055550133" class="btn-blk-out">WhatsApp</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <a href="#" class="f-logo">IRON<span>YARD</span></a>
+    <div class="f-info" style="margin-top:.5rem">
+      55 Barton St W, Hamilton ON · <a href="tel:+19055550133">(905) 555-0133</a><br>
+      Open 24/7 · Staff hours: Mon–Fri 6am–10pm · Sat–Sun 8am–8pm
+    </div>
+  </div>
+  <div class="f-credit">Website by <a href="https://foundryai.live">Foundry AI</a></div>
+</footer>
+
+<!-- ════════ CHATBOT ════════ -->
+<button id="chat-toggle" onclick="toggleChat()">
+  <svg class="ico ico-chat" viewBox="0 0 24 24" fill="#070707"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+  <svg class="ico ico-close" viewBox="0 0 24 24" fill="#070707"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+</button>
+
+<div id="chat-window">
+  <div class="c-header">
+    <div class="c-avatar">💪</div>
+    <div>
+      <div class="c-name">IRON BOT</div>
+      <div class="c-status"><span class="sdot"></span> Online · Let's get you started</div>
+    </div>
+  </div>
+  <div id="c-msgs"></div>
+  <div class="c-quick" id="qwrap">
+    <button class="qb" onclick="sq('What memberships do you offer?')">Memberships</button>
+    <button class="qb" onclick="sq('How much does it cost?')">Pricing</button>
+    <button class="qb" onclick="sq('What classes are available?')">Classes</button>
+    <button class="qb" onclick="sq('Do you have a free trial?')">Free Trial</button>
+  </div>
+  <div class="c-bar">
+    <input id="c-input" type="text" placeholder="Ask about memberships, classes, hours..." autocomplete="off" onkeydown="if(event.key==='Enter')send()"/>
+    <button id="c-send" onclick="send()">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+const SYS = `You are "Iron Bot", the virtual assistant for IronYard Gym in Hamilton, Ontario, Canada.
+
+GYM INFO:
+- Name: IronYard Gym
+- Address: 55 Barton St W, Hamilton ON
+- Phone: (905) 555-0133
+- WhatsApp: (905) 555-0133
+- Hours: Open 24/7 (staff hours Mon–Fri 6am–10pm, Sat–Sun 8am–8pm)
+- Languages: English and Spanish
+- Over 1,200 active members
+
+MEMBERSHIPS:
+- Basic: $39/month — gym floor, locker room, 2 group classes/month, 24/7 access
+- Elite: $69/month — unlimited classes, 1 PT session/month, nutrition app, guest pass
+- Pro: $119/month — 4 PT sessions/month, custom meal plan, body composition scans
+- First 7 days FREE, no credit card required, cancel anytime
+
+GROUP CLASSES (included in Elite & Pro):
+- Boxing HIIT: Mon/Wed/Fri at 6am & 6pm — all levels
+- Spin Cycle: Tue/Thu at 7am & 5:30pm — beginner friendly
+- Powerlifting Club: Mon/Thu/Sat at 7am — intermediate/advanced
+- Yoga & Mobility: Wed/Sun at 9am — all levels
+
+FACILITIES:
+- Full weight floor, cardio zone, functional training area
+- Boxing ring, squat racks, powerlifting platforms
+- Locker rooms with showers, sauna
+- Parking available
+
+YOUR PERSONALITY:
+- Energetic, motivating, direct — like a hype coach
+- Short punchy replies — 2-3 sentences max
+- Use 💪 🔥 emojis occasionally
+- Reply in the language the member writes in (English or Spanish)
+- Always push toward the free trial or calling to join
+- Never invent prices or services not listed above`;
+
+let msgs=[], open=false;
+function toggleChat(){
+  open=!open;
+  document.getElementById('chat-window').classList.toggle('open',open);
+  document.querySelector('.ico-chat').style.display=open?'none':'block';
+  document.querySelector('.ico-close').style.display=open?'block':'none';
+  if(open&&msgs.length===0)
+    setTimeout(()=>addBot("Yo! Welcome to IronYard 💪 First 7 days are FREE — no credit card needed. What do you want to know?"),300);
+}
+function sq(t){document.getElementById('c-input').value=t;send();}
+function addBot(t){const d=document.createElement('div');d.className='msg bot';d.textContent=t;document.getElementById('c-msgs').appendChild(d);sc();}
+function addUser(t){const d=document.createElement('div');d.className='msg user';d.textContent=t;document.getElementById('c-msgs').appendChild(d);sc();}
+function addTyp(){const d=document.createElement('div');d.className='msg typing';d.id='typ';d.innerHTML='<div class="dots"><span></span><span></span><span></span></div>';document.getElementById('c-msgs').appendChild(d);sc();}
+function remTyp(){const t=document.getElementById('typ');if(t)t.remove();}
+function sc(){const m=document.getElementById('c-msgs');m.scrollTop=m.scrollHeight;}
+async function send(){
+  const inp=document.getElementById('c-input');
+  const text=inp.value.trim();if(!text)return;
+  document.getElementById('qwrap').style.display='none';
+  addUser(text);inp.value='';
+  msgs.push({role:'user',content:text});
+  addTyp();
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':'TU_API_KEY_AQUI',
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-haiku-4-5-20251001',
+        max_tokens:250,
+        system:SYS,
+        messages:msgs
+      })
+    });
+    const data=await res.json();
+    if(data.error)throw new Error(data.error.message);
+    const reply=data.content[0].text;
+    msgs.push({role:'assistant',content:reply});
+    remTyp();addBot(reply);
+  }catch(e){
+    remTyp();
+    addBot("Something broke on my end. Call us at (905) 555-0133 and let's get you started 🔥");
+  }
+}
+</script>
+</body>
+</html>

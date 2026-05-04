@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CUTS & KINGS — Barbershop Hamilton</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black:   #080808;
+    --dark:    #101010;
+    --darker:  #0C0C0C;
+    --gold:    #C8A84B;
+    --gold-lt: #E2C46E;
+    --white:   #F0EEEA;
+    --muted:   #666460;
+    --red:     #B22222;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 3.5rem;
+    border-bottom: 1px solid rgba(200,168,75,0.1);
+    background: rgba(8,8,8,0.9);
+    backdrop-filter: blur(12px);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: .1em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-book {
+    background: var(--gold) !important;
+    color: var(--black) !important;
+    padding: .55rem 1.5rem !important;
+    font-weight: 700 !important;
+    transition: background .2s !important;
+  }
+  .nav-book:hover { background: var(--gold-lt) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+    padding-top: 70px;
+  }
+  .hero-left {
+    background: var(--dark);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 5rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Big background text */
+  .hero-bg-text {
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22rem;
+    color: rgba(200,168,75,0.03);
+    line-height: 1;
+    bottom: -2rem;
+    left: -2rem;
+    pointer-events: none;
+    letter-spacing: -.02em;
+    white-space: nowrap;
+  }
+  .hero-tag {
+    font-size: .68rem; letter-spacing: .25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: .8rem;
+  }
+  .hero-tag::before { content:''; width: 2rem; height: 1px; background: var(--gold); }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 7vw, 7rem);
+    line-height: .95;
+    letter-spacing: .02em;
+    margin-bottom: 1.5rem;
+    color: var(--white);
+  }
+  .hero h1 .gold { color: var(--gold); }
+  .hero h1 .outline {
+    -webkit-text-stroke: 1px var(--white);
+    color: transparent;
+  }
+  .hero-desc {
+    font-size: .95rem; font-weight: 300;
+    color: var(--muted); line-height: 1.75;
+    max-width: 340px; margin-bottom: 2.5rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-gold {
+    display: inline-flex; align-items: center; gap: .6rem;
+    background: var(--gold); color: var(--black);
+    padding: .85rem 2rem; font-size: .78rem;
+    letter-spacing: .14em; text-transform: uppercase;
+    font-family: 'Barlow', sans-serif; font-weight: 700;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: background .2s, transform .15s;
+  }
+  .btn-gold:hover { background: var(--gold-lt); transform: translateY(-2px); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: .6rem;
+    background: transparent; color: var(--white);
+    padding: .85rem 2rem; font-size: .78rem;
+    letter-spacing: .14em; text-transform: uppercase;
+    font-family: 'Barlow', sans-serif;
+    text-decoration: none; border: 1px solid rgba(240,238,234,0.2);
+    cursor: pointer; transition: border-color .2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* Right side — visual panel */
+  .hero-right {
+    background: var(--black);
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-grid-lines {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(200,168,75,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,168,75,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-main-visual {
+    position: relative;
+    text-align: center;
+  }
+  .barber-pole {
+    width: 8px; height: 180px;
+    background: repeating-linear-gradient(
+      180deg,
+      var(--red) 0px, var(--red) 20px,
+      var(--white) 20px, var(--white) 40px,
+      var(--gold) 40px, var(--gold) 60px
+    );
+    border-radius: 4px;
+    margin: 0 auto 2rem;
+    animation: stripMove 3s linear infinite;
+    box-shadow: 0 0 20px rgba(200,168,75,0.2);
+  }
+  @keyframes stripMove {
+    from { background-position: 0 0; }
+    to { background-position: 0 60px; }
+  }
+  .scissors-big { font-size: 5rem; display: block; margin-bottom: 1rem; filter: drop-shadow(0 0 20px rgba(200,168,75,0.3)); }
+  .hero-visual-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem; letter-spacing: .3em;
+    color: rgba(240,238,234,0.15);
+    text-transform: uppercase;
+  }
+
+  /* Stat pills */
+  .hero-stats {
+    position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 1px;
+    background: rgba(200,168,75,0.1);
+    white-space: nowrap;
+  }
+  .stat-pill {
+    background: var(--dark);
+    padding: 1rem 2rem;
+    text-align: center;
+  }
+  .stat-n {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem; color: var(--gold); line-height: 1;
+  }
+  .stat-l {
+    font-size: .62rem; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--muted);
+    margin-top: .3rem;
+  }
+
+  /* ── TICKER ── */
+  .ticker {
+    background: var(--gold);
+    padding: .8rem 0; overflow: hidden; white-space: nowrap;
+  }
+  .ticker-inner {
+    display: inline-flex; gap: 2rem;
+    animation: tick 16s linear infinite;
+  }
+  @keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .ticker span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem; letter-spacing: .2em;
+    color: var(--black);
+  }
+  .ticker-sep { color: rgba(8,8,8,0.35) !important; }
+
+  /* ── SERVICES ── */
+  .services { padding: 7rem 3.5rem; }
+  .sec-head {
+    display: flex; justify-content: space-between;
+    align-items: flex-end; margin-bottom: 3.5rem; gap: 2rem; flex-wrap: wrap;
+  }
+  .sec-tag {
+    font-size: .68rem; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: .7rem;
+    display: flex; align-items: center; gap: .7rem;
+  }
+  .sec-tag::before { content:''; width:1.5rem; height:1px; background:var(--gold); }
+  .sec-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    letter-spacing: .04em; line-height: 1;
+    color: var(--white);
+  }
+  .sec-title .gold { color: var(--gold); }
+
+  .services-list { display: flex; flex-direction: column; gap: 1px; background: rgba(240,238,234,0.05); }
+  .service-row {
+    display: flex; align-items: center;
+    background: var(--dark);
+    padding: 1.8rem 2rem;
+    gap: 2rem;
+    transition: background .2s;
+    cursor: default;
+  }
+  .service-row:hover { background: #141414; }
+  .service-row:hover .srv-num { color: var(--gold); }
+  .srv-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem; color: rgba(240,238,234,0.12);
+    width: 2.5rem; flex-shrink: 0;
+    transition: color .2s;
+  }
+  .srv-info { flex: 1; }
+  .srv-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem; letter-spacing: .05em;
+    color: var(--white); margin-bottom: .2rem;
+  }
+  .srv-desc { font-size: .82rem; color: var(--muted); font-weight: 300; }
+  .srv-time {
+    font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted); flex-shrink: 0;
+  }
+  .srv-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem; color: var(--gold);
+    flex-shrink: 0; width: 80px; text-align: right;
+  }
+  .srv-divider { width: 1px; height: 2rem; background: rgba(240,238,234,0.07); flex-shrink: 0; }
+
+  /* ── BARBERS ── */
+  .barbers {
+    padding: 6rem 3.5rem;
+    background: var(--darker);
+  }
+  .barbers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(200,168,75,0.08);
+    margin-top: 3rem;
+  }
+  .barber-card {
+    background: var(--black);
+    padding: 2.5rem;
+    transition: background .2s;
+  }
+  .barber-card:hover { background: #0F0F0F; }
+  .barber-avatar {
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    background: var(--dark);
+    border: 2px solid rgba(200,168,75,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; margin-bottom: 1.2rem;
+  }
+  .barber-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem; letter-spacing: .05em;
+    color: var(--white); margin-bottom: .3rem;
+  }
+  .barber-role { font-size: .72rem; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); margin-bottom: .8rem; }
+  .barber-bio { font-size: .82rem; color: var(--muted); line-height: 1.7; font-weight: 300; }
+  .barber-langs {
+    display: flex; gap: .4rem; margin-top: 1rem; flex-wrap: wrap;
+  }
+  .lang-tag {
+    font-size: .65rem; letter-spacing: .1em; text-transform: uppercase;
+    border: 1px solid rgba(200,168,75,0.2);
+    color: var(--gold); padding: .2rem .6rem;
+  }
+
+  /* ── BOOKING CTA ── */
+  .booking-cta {
+    background: var(--gold);
+    padding: 6rem 3.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 2rem; flex-wrap: wrap;
+  }
+  .cta-left h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    letter-spacing: .04em; line-height: 1;
+    color: var(--black); margin-bottom: .5rem;
+  }
+  .cta-left p { font-size: .9rem; color: rgba(8,8,8,0.6); font-weight: 300; }
+  .cta-right { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-black {
+    display: inline-flex; align-items: center; gap: .6rem;
+    background: var(--black); color: var(--white);
+    padding: 1rem 2.2rem; font-size: .78rem;
+    letter-spacing: .14em; text-transform: uppercase;
+    font-family: 'Barlow', sans-serif; font-weight: 700;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: background .2s;
+  }
+  .btn-black:hover { background: #1A1A1A; }
+  .btn-black-outline {
+    display: inline-flex; align-items: center; gap: .6rem;
+    background: transparent; color: var(--black);
+    padding: 1rem 2.2rem; font-size: .78rem;
+    letter-spacing: .14em; text-transform: uppercase;
+    font-family: 'Barlow', sans-serif;
+    text-decoration: none; border: 2px solid var(--black);
+    cursor: pointer; transition: background .2s, color .2s;
+  }
+  .btn-black-outline:hover { background: var(--black); color: var(--white); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #050505;
+    border-top: 1px solid rgba(200,168,75,0.08);
+    padding: 3rem 3.5rem;
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 1.5rem;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem; letter-spacing: .1em;
+    color: var(--white); text-decoration: none;
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-info { font-size: .78rem; color: var(--muted); line-height: 1.8; }
+  .footer-info a { color: var(--gold); text-decoration: none; }
+  .footer-credit { font-size: .72rem; color: rgba(102,100,96,0.5); }
+  .footer-credit a { color: var(--gold); text-decoration: none; opacity:.7; }
+
+  /* ══════════ CHATBOT ══════════ */
+  #chat-toggle {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
+    width: 58px; height: 58px; border-radius: 0;
+    background: var(--gold); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 24px rgba(200,168,75,0.3);
+    transition: background .2s, transform .2s;
+  }
+  #chat-toggle:hover { background: var(--gold-lt); transform: scale(1.05); }
+  .ico { width: 22px; height: 22px; }
+  .ico-close { display: none; }
+
+  #chat-window {
+    position: fixed; bottom: 5.5rem; right: 2rem; z-index: 200;
+    width: 360px; max-height: 530px;
+    background: var(--dark);
+    border: 1px solid rgba(200,168,75,0.15);
+    box-shadow: 0 12px 50px rgba(0,0,0,0.6);
+    display: flex; flex-direction: column;
+    opacity: 0; transform: translateY(14px) scale(.97);
+    pointer-events: none;
+    transition: opacity .25s, transform .25s;
+  }
+  #chat-window.open { opacity:1; transform:translateY(0) scale(1); pointer-events:all; }
+
+  .c-header {
+    background: var(--black);
+    border-bottom: 2px solid var(--gold);
+    padding: .9rem 1.2rem;
+    display: flex; align-items: center; gap: .9rem;
+  }
+  .c-avatar {
+    width: 38px; height: 38px;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+  .c-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem; letter-spacing: .08em; color: var(--white);
+  }
+  .c-status { font-size: .68rem; color: var(--muted); display:flex; align-items:center; gap:.4rem; }
+  .sdot { width:6px; height:6px; border-radius:50%; background:#4ade80; display:inline-block; }
+
+  #c-msgs {
+    flex:1; overflow-y:auto; padding:1rem;
+    display:flex; flex-direction:column; gap:.65rem; min-height:0;
+    scrollbar-width:thin; scrollbar-color:rgba(200,168,75,0.15) transparent;
+  }
+  .msg {
+    max-width:84%; padding:.6rem .95rem;
+    font-size:.83rem; line-height:1.55;
+    animation: pop .18s ease;
+  }
+  @keyframes pop { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
+  .msg.bot { background:#161616; color:var(--white); align-self:flex-start; border-left:2px solid var(--gold); }
+  .msg.user { background:var(--gold); color:var(--black); align-self:flex-end; font-weight:500; }
+  .msg.typing { background:#161616; align-self:flex-start; border-left:2px solid var(--gold); padding:.8rem 1rem; }
+  .dots { display:flex; gap:4px; align-items:center; height:14px; }
+  .dots span { width:5px; height:5px; border-radius:50%; background:var(--gold); animation:bop 1.2s infinite; }
+  .dots span:nth-child(2){animation-delay:.2s} .dots span:nth-child(3){animation-delay:.4s}
+  @keyframes bop{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+
+  .c-quick {
+    padding:.55rem 1rem; display:flex; gap:.4rem; flex-wrap:wrap;
+    border-top:1px solid rgba(200,168,75,0.08);
+  }
+  .qb {
+    font-size:.68rem; padding:.28rem .7rem;
+    border:1px solid rgba(200,168,75,0.2);
+    background:transparent; color:var(--gold);
+    cursor:pointer; font-family:'Barlow',sans-serif;
+    transition:background .15s; white-space:nowrap;
+  }
+  .qb:hover { background:rgba(200,168,75,0.1); }
+
+  .c-bar {
+    display:flex; align-items:center; gap:.5rem;
+    padding:.75rem 1rem; border-top:1px solid rgba(200,168,75,0.08);
+  }
+  #c-input {
+    flex:1; border:1px solid rgba(200,168,75,0.15);
+    background:#0C0C0C; padding:.5rem .85rem;
+    font-size:.83rem; font-family:'Barlow',sans-serif;
+    color:var(--white); outline:none; transition:border-color .2s;
+  }
+  #c-input:focus { border-color:var(--gold); }
+  #c-input::placeholder { color:var(--muted); }
+  #c-send {
+    width:34px; height:34px; background:var(--gold);
+    border:none; cursor:pointer; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    transition:background .2s;
+  }
+  #c-send:hover { background:var(--gold-lt); }
+  #c-send svg { width:14px; height:14px; fill:none; stroke:var(--black); stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width:900px) {
+    nav { padding:1rem 1.5rem; }
+    .nav-links { display:none; }
+    .hero { grid-template-columns:1fr; }
+    .hero-left { padding:5rem 1.5rem 3rem; }
+    .hero-right { height:50vw; min-height:250px; }
+    .hero-stats { position:relative; bottom:auto; left:auto; transform:none; margin-top:2rem; }
+    .services { padding:4rem 1.5rem; }
+    .service-row { padding:1.2rem 1rem; gap:1rem; }
+    .srv-time { display:none; }
+    .barbers { padding:4rem 1.5rem; }
+    .barbers-grid { grid-template-columns:1fr; }
+    .booking-cta { padding:4rem 1.5rem; flex-direction:column; }
+    footer { padding:2rem 1.5rem; flex-direction:column; align-items:flex-start; }
+    #chat-window { width:calc(100vw - 2rem); right:1rem; bottom:5rem; }
+    #chat-toggle { right:1rem; bottom:1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">CUTS <span>&</span> KINGS</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#barbers">Our Barbers</a></li>
+    <li><a href="tel:+19055550177" class="nav-book">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-bg-text">CUT</div>
+    <div class="hero-tag">Premium Barbershop · Hamilton, ON</div>
+    <h1>
+      SHARP<br>
+      <span class="gold">FADES.</span><br>
+      <span class="outline">CLEAN</span><br>
+      LINES.
+    </h1>
+    <p class="hero-desc">Old-school craft, modern precision. Every cut is a statement. Walk in looking good — walk out looking legendary.</p>
+    <div class="hero-btns">
+      <a href="tel:+19055550177" class="btn-gold">Book Your Cut →</a>
+      <a href="#services" class="btn-outline">See Prices</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-grid-lines"></div>
+    <div class="hero-main-visual">
+      <div class="barber-pole"></div>
+      <span class="scissors-big">✂️</span>
+      <div class="hero-visual-title">Est. 2018 · Hamilton</div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-pill">
+        <div class="stat-n">5★</div>
+        <div class="stat-l">Google</div>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-n">6yr</div>
+        <div class="stat-l">In Business</div>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-n">3</div>
+        <div class="stat-l">Barbers</div>
+      </div>
+      <div class="stat-pill">
+        <div class="stat-n">EN·ES</div>
+        <div class="stat-l">Languages</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>SKIN FADE</span><span class="ticker-sep"> · </span>
+    <span>TAPER FADE</span><span class="ticker-sep"> · </span>
+    <span>BEARD TRIM</span><span class="ticker-sep"> · </span>
+    <span>HOT TOWEL SHAVE</span><span class="ticker-sep"> · </span>
+    <span>KIDS CUTS</span><span class="ticker-sep"> · </span>
+    <span>LINEUPS</span><span class="ticker-sep"> · </span>
+    <span>COLORING</span><span class="ticker-sep"> · </span>
+    <span>SKIN FADE</span><span class="ticker-sep"> · </span>
+    <span>TAPER FADE</span><span class="ticker-sep"> · </span>
+    <span>BEARD TRIM</span><span class="ticker-sep"> · </span>
+    <span>HOT TOWEL SHAVE</span><span class="ticker-sep"> · </span>
+    <span>KIDS CUTS</span><span class="ticker-sep"> · </span>
+    <span>LINEUPS</span><span class="ticker-sep"> · </span>
+    <span>COLORING</span><span class="ticker-sep"> · </span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="sec-head">
+    <div>
+      <div class="sec-tag">What we do</div>
+      <div class="sec-title">THE <span class="gold">MENU</span></div>
+    </div>
+    <div style="font-size:.8rem;color:var(--muted);max-width:220px;line-height:1.7;">
+      All cuts include wash, cut, style and hot towel finish. Walk-ins welcome — appointments get priority.
+    </div>
+  </div>
+  <div class="services-list">
+    <div class="service-row">
+      <div class="srv-num">01</div>
+      <div class="srv-info">
+        <div class="srv-name">Classic Cut</div>
+        <div class="srv-desc">Scissor or clipper cut, wash, blow dry and style.</div>
+      </div>
+      <div class="srv-time">30 min</div>
+      <div class="srv-divider"></div>
+      <div class="srv-price">$35</div>
+    </div>
+    <div class="service-row">
+      <div class="srv-num">02</div>
+      <div class="srv-info">
+        <div class="srv-name">Skin Fade</div>
+        <div class="srv-desc">Zero to full blend. The signature cut. Crispy, clean, perfect every time.</div>
+      </div>
+      <div class="srv-time">45 min</div>
+      <div class="srv-divider"></div>
+      <div class="srv-price">$45</div>
+    </div>
+    <div class="service-row">
+      <div class="srv-num">03</div>
+      <div class="srv-info">
+        <div class="srv-name">Cut + Beard Trim</div>
+        <div class="srv-desc">Full haircut combo with beard shaping, edge-up and hot towel finish.</div>
+      </div>
+      <div class="srv-time">60 min</div>
+      <div class="srv-divider"></div>
+      <div class="srv-price">$60</div>
+    </div>
+    <div class="service-row">
+      <div class="srv-num">04</div>
+      <div class="srv-info">
+        <div class="srv-name">Hot Towel Shave</div>
+        <div class="srv-desc">Traditional straight razor shave with pre-shave oil, hot towel and aftershave balm.</div>
+      </div>
+      <div class="srv-time">45 min</div>
+      <div class="srv-divider"></div>
+      <div class="srv-price">$50</div>
+    </div>
+    <div class="service-row">
+      <div class="srv-num">05</div>
+      <div class="srv-info">
+        <div class="srv-name">Kids Cut (under 12)</div>
+        <div class="srv-desc">Patient, friendly service for the little ones. Parents welcome.</div>
+      </div>
+      <div class="srv-time">30 min</div>
+      <div class="srv-divider"></div>
+      <div class="srv-price">$25</div>
+    </div>
+    <div class="service-row">
+      <div class="srv-num">06</div>
+      <div class="srv-info">
+        <div class="srv-name">Color & Highlights</div>
+        <div class="srv-desc">Full color, bleach, toner or highlights. Consultation included.</div>
+      </div>
+      <div class="srv-time">90+ min</div>
+      <div class="srv-divider"></div>
+      <div class="srv-price">$80+</div>
+    </div>
+  </div>
+</section>
+
+<!-- BARBERS -->
+<section class="barbers" id="barbers">
+  <div class="sec-tag">The team</div>
+  <div class="sec-title" style="margin-bottom:0">MEET THE <span class="gold" style="color:var(--gold)">KINGS</span></div>
+  <div class="barbers-grid">
+    <div class="barber-card">
+      <div class="barber-avatar">👑</div>
+      <div class="barber-name">Marcus D.</div>
+      <div class="barber-role">Master Barber · Owner</div>
+      <div class="barber-bio">12 years behind the chair. Specializes in skin fades, beard design and hair art. Won the Hamilton Barber Battle 2022.</div>
+      <div class="barber-langs"><span class="lang-tag">English</span><span class="lang-tag">Spanish</span></div>
+    </div>
+    <div class="barber-card">
+      <div class="barber-avatar">✂️</div>
+      <div class="barber-name">Diego R.</div>
+      <div class="barber-role">Senior Barber</div>
+      <div class="barber-bio">Colombian-trained, Hamilton-based. Expert in textured hair, tapers and curly cuts. Known for his clean lineups.</div>
+      <div class="barber-langs"><span class="lang-tag">English</span><span class="lang-tag">Spanish</span></div>
+    </div>
+    <div class="barber-card">
+      <div class="barber-avatar">🔥</div>
+      <div class="barber-name">Jordan K.</div>
+      <div class="barber-role">Barber</div>
+      <div class="barber-bio">Fresh techniques, classic foundations. Specializes in kids cuts, modern styles and color treatments.</div>
+      <div class="barber-langs"><span class="lang-tag">English</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING CTA -->
+<section class="booking-cta">
+  <div class="cta-left">
+    <h2>READY FOR YOUR<br>BEST CUT YET?</h2>
+    <p>Walk-ins welcome. Appointments get priority. Open 7 days a week.</p>
+  </div>
+  <div class="cta-right">
+    <a href="tel:+19055550177" class="btn-black">📞 (905) 555-0177</a>
+    <a href="https://wa.me/19055550177" class="btn-black-outline">WhatsApp Us</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <a href="#" class="footer-logo">CUTS <span>&</span> KINGS</a>
+    <div class="footer-info" style="margin-top:.5rem">
+      789 James St N, Hamilton ON<br>
+      Mon–Sat 9am–8pm · Sun 10am–6pm<br>
+      <a href="tel:+19055550177">(905) 555-0177</a>
+    </div>
+  </div>
+  <div class="footer-credit">
+    Website by <a href="https://foundryai.live">Foundry AI</a>
+  </div>
+</footer>
+
+<!-- ════════ CHATBOT ════════ -->
+<button id="chat-toggle" onclick="toggleChat()">
+  <svg class="ico ico-chat" viewBox="0 0 24 24" fill="#080808">
+    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+  </svg>
+  <svg class="ico ico-close" viewBox="0 0 24 24" fill="#080808">
+    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+  </svg>
+</button>
+
+<div id="chat-window">
+  <div class="c-header">
+    <div class="c-avatar">✂️</div>
+    <div>
+      <div class="c-name">KING BOT — C&K Assistant</div>
+      <div class="c-status"><span class="sdot"></span> Online · Ready to book</div>
+    </div>
+  </div>
+  <div id="c-msgs"></div>
+  <div class="c-quick" id="qwrap">
+    <button class="qb" onclick="sq('What are your prices?')">Prices</button>
+    <button class="qb" onclick="sq('How do I book an appointment?')">Book</button>
+    <button class="qb" onclick="sq('What are your hours?')">Hours</button>
+    <button class="qb" onclick="sq('Do you speak Spanish?')">Español</button>
+  </div>
+  <div class="c-bar">
+    <input id="c-input" type="text" placeholder="Ask about prices, booking, hours..." autocomplete="off" onkeydown="if(event.key==='Enter')send()"/>
+    <button id="c-send" onclick="send()">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+const SYS = `You are "King Bot", the virtual assistant for Cuts & Kings Barbershop in Hamilton, Ontario, Canada.
+
+SHOP INFO:
+- Name: Cuts & Kings
+- Address: 789 James St N, Hamilton ON
+- Phone: (905) 555-0177
+- WhatsApp: (905) 555-0177
+- Hours: Monday–Saturday 9am–8pm | Sunday 10am–6pm
+- Walk-ins welcome, appointments get priority
+- Languages: English and Spanish (Diego and Marcus speak Spanish)
+
+SERVICES & PRICES:
+- Classic Cut: $35 (30 min)
+- Skin Fade: $45 (45 min)
+- Cut + Beard Trim: $60 (60 min)
+- Hot Towel Shave: $50 (45 min)
+- Kids Cut (under 12): $25 (30 min)
+- Color & Highlights: $80+ (90+ min)
+- Lineup/Edge-Up only: $20 (15 min)
+
+BARBERS:
+- Marcus D. — Master Barber & Owner, 12 years experience, speaks English & Spanish
+- Diego R. — Senior Barber, specializes in textured hair, speaks English & Spanish
+- Jordan K. — Barber, specializes in kids cuts and color
+
+BOOKING:
+- Call or WhatsApp (905) 555-0177
+- Walk-ins welcome but appointments get priority
+- No online booking system yet
+
+YOUR PERSONALITY:
+- Confident, direct, friendly — like a cool barber
+- Use short punchy replies — maximum 2-3 sentences
+- Reply in the language the customer writes in (English or Spanish)
+- Use ✂️ emoji occasionally
+- Always push toward booking — "Come in, we got you"
+- Never make up services or prices not listed above`;
+
+let msgs=[], open=false;
+
+function toggleChat(){
+  open=!open;
+  document.getElementById('chat-window').classList.toggle('open',open);
+  document.querySelector('.ico-chat').style.display=open?'none':'block';
+  document.querySelector('.ico-close').style.display=open?'block':'none';
+  if(open&&msgs.length===0)
+    setTimeout(()=>addBot('Yo! Welcome to Cuts & Kings ✂️ What can I help you with — prices, booking, or hours?'),300);
+}
+function sq(t){document.getElementById('c-input').value=t;send();}
+function addBot(t){const d=document.createElement('div');d.className='msg bot';d.textContent=t;document.getElementById('c-msgs').appendChild(d);sc();}
+function addUser(t){const d=document.createElement('div');d.className='msg user';d.textContent=t;document.getElementById('c-msgs').appendChild(d);sc();}
+function addTyp(){const d=document.createElement('div');d.className='msg typing';d.id='typ';d.innerHTML='<div class="dots"><span></span><span></span><span></span></div>';document.getElementById('c-msgs').appendChild(d);sc();}
+function remTyp(){const t=document.getElementById('typ');if(t)t.remove();}
+function sc(){const m=document.getElementById('c-msgs');m.scrollTop=m.scrollHeight;}
+
+async function send(){
+  const inp=document.getElementById('c-input');
+  const text=inp.value.trim();if(!text)return;
+  document.getElementById('qwrap').style.display='none';
+  addUser(text);inp.value='';
+  msgs.push({role:'user',content:text});
+  addTyp();
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':'TU_API_KEY_AQUI',
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-haiku-4-5-20251001',
+        max_tokens:250,
+        system:SYS,
+        messages:msgs
+      })
+    });
+    const data=await res.json();
+    if(data.error)throw new Error(data.error.message);
+    const reply=data.content[0].text;
+    msgs.push({role:'assistant',content:reply});
+    remTyp();addBot(reply);
+  }catch(e){
+    remTyp();
+    addBot('Something went wrong. Hit us up at (905) 555-0177 ✂️');
+  }
+}
+</script>
+</body>
+</html>

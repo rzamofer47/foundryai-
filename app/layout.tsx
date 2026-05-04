@@ -1,29 +1,26 @@
 import type { Metadata } from 'next'
-import { DM_Sans } from 'next/font/google'
+import { Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
 
-const dmSans = DM_Sans({
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  weight: ['400', '500'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-plus',
   display: 'swap',
 })
 
 export const metadata: Metadata = {
-  title: 'Foundry AI — AI tools for modern businesses',
+  title: 'Foundry AI — Web Design for Hamilton Small Businesses',
   description:
-    'We build AI-powered web experiences, phone agents, chatbots, apps and games for startups and sole proprietors who want to modernize — without the complexity.',
+    'Custom, fast, mobile-first websites for small businesses in Hamilton, Ontario. No templates. No fluff. Bilingual English & Spanish.',
   openGraph: {
-    title: 'Foundry AI',
-    description: 'AI tools and development for modern businesses.',
-    url: 'https://foundryai.com',
+    title: 'Foundry AI — Hamilton Web Design',
+    description:
+      'Beautiful websites that get you more customers. AI chatbot included. 7–14 day delivery.',
+    url: 'https://foundryai.live',
     siteName: 'Foundry AI',
     locale: 'en_CA',
     type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Foundry AI',
-    description: 'AI tools and development for modern businesses.',
   },
 }
 
@@ -33,8 +30,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={dmSans.className}>{children}</body>
+    <html lang="en" className={plusJakarta.variable}>
+      <body
+        className={`${plusJakarta.className} min-h-screen font-sans`}
+        style={{ backgroundColor: '#1A0533', color: '#ffffff' }}
+      >
+        {children}
+      </body>
     </html>
   )
 }

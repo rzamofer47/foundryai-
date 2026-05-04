@@ -1,22 +1,11 @@
-:root {
-  --black: #0D0D0D;
-  --carbon: #161612;
-  --steel: #2A2A28;
-  --dim: #444441;
-  --muted: #555551;
-  --ash: #F5F5F3;
-  --ember: #E8622A;
-  --ember-dark: #C44E18;
-  --ember-glow: #3A1F10;
-  --ember-bg: #1A0E08;
-  --border: #1E1E1B;
-  --border-light: #2A2A28;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+:root {
+  --foundry-base: #1a0533;
+  --foundry-section: #2d0f5e;
+  --accent: #00d4ff;
 }
 
 html {
@@ -24,34 +13,42 @@ html {
 }
 
 body {
-  background: var(--black);
-  color: var(--ash);
-  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  @apply bg-foundry-base text-white antialiased;
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 }
 
-@keyframes pulse-ember {
-  0%, 100% { opacity: 0.4; }
-  50%       { opacity: 0.8; }
+@keyframes blob-float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -40px) scale(1.05);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
 }
 
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+@keyframes blob-float-slow {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-35px, 30px) scale(1.08);
+  }
 }
 
-.animate-fade-up {
-  animation: fadeUp 0.7s ease forwards;
-  opacity: 0;
+.animate-blob {
+  animation: blob-float 18s ease-in-out infinite;
 }
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.35s; }
-.delay-4 { animation-delay: 0.5s; }
-.delay-5 { animation-delay: 0.65s; }
+
+.animate-blob-slow {
+  animation: blob-float-slow 22s ease-in-out infinite;
+}

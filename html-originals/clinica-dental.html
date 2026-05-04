@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bright Smile Dental — Hamilton, Ontario</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Fraunces:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue:      #1B4FD8;
+    --blue-dark: #0F2E8A;
+    --blue-lt:   #EEF3FF;
+    --blue-mid:  #C7D5FA;
+    --white:     #FFFFFF;
+    --off:       #F7F9FF;
+    --ink:       #0D1B3E;
+    --muted:     #6B7A99;
+    --green:     #0EA870;
+    --border:    rgba(27,79,216,0.1);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 3.5rem;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: .6rem;
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 34px; height: 34px; border-radius: 8px;
+    background: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+  .logo-text {
+    font-size: 1rem; font-weight: 700;
+    color: var(--ink); letter-spacing: -.01em;
+  }
+  .logo-text span { color: var(--blue); }
+  .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: .8rem; font-weight: 500;
+    color: var(--muted); text-decoration: none;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--blue); }
+  .nav-cta {
+    background: var(--blue) !important;
+    color: var(--white) !important;
+    padding: .55rem 1.4rem !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    font-size: .8rem !important;
+    transition: background .2s !important;
+  }
+  .nav-cta:hover { background: var(--blue-dark) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 70px;
+    background: var(--off);
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 5rem 4rem 5rem 3.5rem;
+  }
+  .hero-pill {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: var(--blue-lt);
+    border: 1px solid var(--blue-mid);
+    border-radius: 99px;
+    padding: .35rem 1rem;
+    font-size: .72rem; font-weight: 600;
+    color: var(--blue);
+    letter-spacing: .04em;
+    margin-bottom: 1.8rem;
+    width: fit-content;
+  }
+  .pill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+  .hero h1 {
+    font-size: clamp(2.5rem, 4.5vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -.03em;
+    color: var(--ink);
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 em {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--blue);
+  }
+  .hero-desc {
+    font-size: .95rem; font-weight: 400;
+    color: var(--muted); line-height: 1.8;
+    max-width: 360px; margin-bottom: 2.2rem;
+  }
+  .hero-btns { display: flex; gap: .8rem; flex-wrap: wrap; margin-bottom: 2.8rem; }
+  .btn-blue {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: var(--blue); color: var(--white);
+    padding: .85rem 1.8rem; border-radius: 8px;
+    font-size: .82rem; font-weight: 600;
+    text-decoration: none; border: none; cursor: pointer;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    transition: background .2s, transform .15s;
+  }
+  .btn-blue:hover { background: var(--blue-dark); transform: translateY(-1px); }
+  .btn-soft {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: var(--white); color: var(--ink);
+    padding: .85rem 1.8rem; border-radius: 8px;
+    font-size: .82rem; font-weight: 500;
+    text-decoration: none; border: 1.5px solid var(--border);
+    cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;
+    transition: border-color .2s, background .2s;
+  }
+  .btn-soft:hover { border-color: var(--blue); background: var(--blue-lt); }
+
+  .trust-row {
+    display: flex; gap: 2rem; flex-wrap: wrap;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .trust-item { display: flex; align-items: center; gap: .7rem; }
+  .trust-icon {
+    width: 38px; height: 38px; border-radius: 8px;
+    background: var(--blue-lt);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+  }
+  .trust-label { font-size: .78rem; font-weight: 600; color: var(--ink); }
+  .trust-sub { font-size: .7rem; color: var(--muted); margin-top: 1px; }
+
+  /* Hero right */
+  .hero-right {
+    background: var(--blue);
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    padding: 3rem;
+    overflow: hidden;
+  }
+  .hero-right::before {
+    content: '';
+    position: absolute; top: -100px; right: -100px;
+    width: 400px; height: 400px; border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .hero-right::after {
+    content: '';
+    position: absolute; bottom: -80px; left: -80px;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+  }
+  .hero-card-stack { position: relative; width: 300px; }
+  .card-main {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 1.8rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    position: relative; z-index: 2;
+  }
+  .card-top { display: flex; align-items: center; gap: .8rem; margin-bottom: 1.2rem; }
+  .card-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--blue-lt);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+  }
+  .card-name { font-size: .88rem; font-weight: 600; color: var(--ink); }
+  .card-sub { font-size: .72rem; color: var(--muted); }
+  .card-body { font-size: .82rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.2rem; }
+  .card-stars { color: #F5A623; font-size: .85rem; letter-spacing: .05em; }
+  .card-date { font-size: .68rem; color: var(--muted); margin-top: .3rem; }
+
+  .card-float {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 1.1rem 1.3rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    position: absolute;
+    display: flex; align-items: center; gap: .7rem;
+  }
+  .card-float-1 { top: -1.5rem; right: -2rem; z-index: 3; min-width: 170px; }
+  .card-float-2 { bottom: -1.5rem; left: -2rem; z-index: 3; min-width: 160px; }
+  .cf-icon { font-size: 1.3rem; flex-shrink: 0; }
+  .cf-label { font-size: .75rem; font-weight: 600; color: var(--ink); }
+  .cf-sub { font-size: .65rem; color: var(--muted); }
+
+  /* ── SERVICES ── */
+  .services { padding: 7rem 3.5rem; background: var(--white); }
+  .sec-top { text-align: center; margin-bottom: 4rem; }
+  .sec-pill {
+    display: inline-flex; align-items: center; gap: .4rem;
+    background: var(--blue-lt); border-radius: 99px;
+    padding: .3rem .9rem; font-size: .7rem; font-weight: 600;
+    color: var(--blue); margin-bottom: 1rem; letter-spacing: .04em;
+  }
+  .sec-title {
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 700; letter-spacing: -.03em;
+    color: var(--ink); line-height: 1.15;
+  }
+  .sec-title em {
+    font-family: 'Fraunces', serif;
+    font-style: italic; font-weight: 300; color: var(--blue);
+  }
+  .sec-sub { font-size: .9rem; color: var(--muted); margin-top: .8rem; max-width: 400px; margin-left: auto; margin-right: auto; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .srv-card {
+    background: var(--off);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 2rem;
+    transition: border-color .2s, box-shadow .2s, transform .2s;
+    cursor: default;
+  }
+  .srv-card:hover {
+    border-color: var(--blue);
+    box-shadow: 0 8px 30px rgba(27,79,216,0.08);
+    transform: translateY(-3px);
+  }
+  .srv-icon {
+    width: 48px; height: 48px; border-radius: 10px;
+    background: var(--blue-lt);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 1.2rem;
+  }
+  .srv-name { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: .4rem; }
+  .srv-desc { font-size: .82rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.2rem; }
+  .srv-price {
+    font-size: .82rem; font-weight: 700;
+    color: var(--blue);
+    display: flex; align-items: center; gap: .4rem;
+  }
+  .srv-price::before { content: ''; display: block; width: .8rem; height: 1.5px; background: var(--blue); }
+
+  /* ── WHY US ── */
+  .why {
+    background: var(--ink);
+    padding: 7rem 3.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .why-left .sec-title { color: var(--white); }
+  .why-left .sec-title em { color: var(--blue-mid); }
+  .why-desc { font-size: .9rem; color: rgba(255,255,255,0.5); line-height: 1.85; margin: 1.2rem 0 2.5rem; }
+  .why-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .w-stat {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px; padding: 1.3rem;
+  }
+  .w-num {
+    font-size: 2.2rem; font-weight: 700;
+    color: var(--white); letter-spacing: -.03em; line-height: 1;
+  }
+  .w-num span { color: var(--blue-mid); }
+  .w-label { font-size: .72rem; color: rgba(255,255,255,0.4); margin-top: .4rem; text-transform: uppercase; letter-spacing: .08em; }
+
+  .why-right { display: flex; flex-direction: column; gap: 1rem; }
+  .why-feat {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 1.4rem 1.6rem;
+    display: flex; align-items: flex-start; gap: 1rem;
+    transition: background .2s;
+  }
+  .why-feat:hover { background: rgba(27,79,216,0.1); border-color: rgba(27,79,216,0.3); }
+  .feat-ico {
+    width: 40px; height: 40px; border-radius: 8px;
+    background: rgba(27,79,216,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+  .feat-title { font-size: .9rem; font-weight: 600; color: var(--white); margin-bottom: .3rem; }
+  .feat-desc { font-size: .8rem; color: rgba(255,255,255,0.4); line-height: 1.6; }
+
+  /* ── BOOKING ── */
+  .booking {
+    padding: 6rem 3.5rem;
+    background: var(--blue-lt);
+    text-align: center;
+  }
+  .booking .sec-title { color: var(--ink); }
+  .booking-sub { font-size: .9rem; color: var(--muted); margin: .8rem auto 2.5rem; max-width: 380px; }
+  .booking-options {
+    display: flex; gap: 1rem; justify-content: center;
+    flex-wrap: wrap; margin-bottom: 2rem;
+  }
+  .book-opt {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    display: flex; align-items: center; gap: 1rem;
+    cursor: pointer; text-decoration: none;
+    transition: border-color .2s, box-shadow .2s, transform .15s;
+    min-width: 200px;
+  }
+  .book-opt:hover { border-color: var(--blue); box-shadow: 0 4px 20px rgba(27,79,216,0.1); transform: translateY(-2px); }
+  .bo-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .bo-label { font-size: .85rem; font-weight: 700; color: var(--ink); text-align: left; }
+  .bo-sub { font-size: .72rem; color: var(--muted); text-align: left; }
+  .insurance-note {
+    font-size: .78rem; color: var(--muted);
+    display: flex; align-items: center; gap: .4rem; justify-content: center;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    padding: 3rem 3.5rem;
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 1.5rem;
+  }
+  .f-logo { display: flex; align-items: center; gap: .6rem; text-decoration: none; }
+  .f-logo-icon { width: 30px; height: 30px; border-radius: 6px; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: .9rem; }
+  .f-logo-text { font-size: .9rem; font-weight: 700; color: var(--white); }
+  .f-info { font-size: .78rem; color: rgba(255,255,255,0.4); line-height: 1.8; }
+  .f-info a { color: var(--blue-mid); text-decoration: none; }
+  .f-credit { font-size: .72rem; color: rgba(255,255,255,0.25); }
+  .f-credit a { color: var(--blue-mid); text-decoration: none; opacity: .7; }
+
+  /* ══════════ CHATBOT ══════════ */
+  #chat-toggle {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
+    width: 58px; height: 58px; border-radius: 50%;
+    background: var(--blue); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 24px rgba(27,79,216,0.35);
+    transition: background .2s, transform .2s;
+  }
+  #chat-toggle:hover { background: var(--blue-dark); transform: scale(1.06); }
+  .ico { width: 22px; height: 22px; }
+  .ico-close { display: none; }
+
+  #chat-window {
+    position: fixed; bottom: 5.5rem; right: 2rem; z-index: 200;
+    width: 360px; max-height: 530px;
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 12px 50px rgba(13,27,62,0.12);
+    display: flex; flex-direction: column;
+    opacity: 0; transform: translateY(14px) scale(.97);
+    pointer-events: none;
+    transition: opacity .25s, transform .25s;
+    overflow: hidden;
+  }
+  #chat-window.open { opacity:1; transform:translateY(0) scale(1); pointer-events:all; }
+
+  .c-header {
+    background: var(--blue);
+    padding: 1rem 1.2rem;
+    display: flex; align-items: center; gap: .9rem;
+  }
+  .c-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+  .c-name { font-size: .88rem; font-weight: 600; color: var(--white); }
+  .c-status { font-size: .68rem; color: rgba(255,255,255,0.65); display:flex; align-items:center; gap:.4rem; margin-top:1px; }
+  .sdot { width:6px; height:6px; border-radius:50%; background:#4ade80; display:inline-block; }
+
+  #c-msgs {
+    flex:1; overflow-y:auto; padding:1.1rem;
+    display:flex; flex-direction:column; gap:.7rem; min-height:0;
+    scrollbar-width:thin; scrollbar-color:var(--border) transparent;
+  }
+  .msg {
+    max-width:84%; padding:.65rem 1rem;
+    font-size:.83rem; line-height:1.55;
+    border-radius: 12px;
+    animation: pop .18s ease;
+  }
+  @keyframes pop{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+  .msg.bot { background:var(--off); color:var(--ink); align-self:flex-start; border-bottom-left-radius:4px; border: 1px solid var(--border); }
+  .msg.user { background:var(--blue); color:var(--white); align-self:flex-end; border-bottom-right-radius:4px; }
+  .msg.typing { background:var(--off); align-self:flex-start; border:1px solid var(--border); border-radius:12px; border-bottom-left-radius:4px; padding:.85rem 1rem; }
+  .dots{display:flex;gap:4px;align-items:center;height:14px;}
+  .dots span{width:5px;height:5px;border-radius:50%;background:var(--blue);animation:bop 1.2s infinite;}
+  .dots span:nth-child(2){animation-delay:.2s}.dots span:nth-child(3){animation-delay:.4s}
+  @keyframes bop{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+
+  .c-quick{
+    padding:.6rem 1rem;display:flex;gap:.4rem;flex-wrap:wrap;
+    border-top:1px solid var(--border); background: var(--off);
+  }
+  .qb{
+    font-size:.7rem;padding:.3rem .75rem;
+    border:1.5px solid var(--border);
+    background:var(--white);color:var(--blue);
+    cursor:pointer;border-radius:99px;
+    font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;
+    transition:background .15s,border-color .15s;white-space:nowrap;
+  }
+  .qb:hover{background:var(--blue-lt);border-color:var(--blue);}
+
+  .c-bar{
+    display:flex;align-items:center;gap:.5rem;
+    padding:.75rem 1rem;border-top:1px solid var(--border);
+  }
+  #c-input{
+    flex:1;border:1.5px solid var(--border);
+    background:var(--off);padding:.5rem .9rem;border-radius:8px;
+    font-size:.83rem;font-family:'Plus Jakarta Sans',sans-serif;
+    color:var(--ink);outline:none;transition:border-color .2s;
+  }
+  #c-input:focus{border-color:var(--blue);}
+  #c-input::placeholder{color:var(--muted);}
+  #c-send{
+    width:34px;height:34px;border-radius:8px;
+    background:var(--blue);border:none;cursor:pointer;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;transition:background .2s;
+  }
+  #c-send:hover{background:var(--blue-dark);}
+  #c-send svg{width:14px;height:14px;fill:none;stroke:white;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:900px){
+    nav{padding:1rem 1.5rem;}
+    .nav-links{display:none;}
+    .hero{grid-template-columns:1fr;}
+    .hero-left{padding:5rem 1.5rem 3rem;}
+    .hero-right{padding:3rem 1.5rem;min-height:320px;}
+    .hero-card-stack{width:100%;max-width:280px;}
+    .card-float-1{right:-1rem;}
+    .card-float-2{left:-1rem;}
+    .services{padding:4rem 1.5rem;}
+    .services-grid{grid-template-columns:1fr;}
+    .why{grid-template-columns:1fr;padding:4rem 1.5rem;gap:3rem;}
+    .booking{padding:4rem 1.5rem;}
+    footer{padding:2rem 1.5rem;flex-direction:column;align-items:flex-start;}
+    #chat-window{width:calc(100vw - 2rem);right:1rem;bottom:5rem;border-radius:12px;}
+    #chat-toggle{right:1rem;bottom:1rem;}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-icon">🦷</div>
+    <div class="logo-text">Bright<span>Smile</span> Dental</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#book">Appointments</a></li>
+    <li><a href="tel:+19055550155" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-pill">
+      <span class="pill-dot"></span>
+      Now Accepting New Patients · Hamilton
+    </div>
+    <h1>Your <em>healthiest</em><br>smile starts<br>here.</h1>
+    <p class="hero-desc">Comprehensive dental care for the whole family. Gentle, modern, and bilingual — we treat patients in English and Spanish.</p>
+    <div class="hero-btns">
+      <a href="tel:+19055550155" class="btn-blue">Book Appointment →</a>
+      <a href="#services" class="btn-soft">View Services</a>
+    </div>
+    <div class="trust-row">
+      <div class="trust-item">
+        <div class="trust-icon">⭐</div>
+        <div>
+          <div class="trust-label">4.9 / 5 Stars</div>
+          <div class="trust-sub">Google Reviews</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🏥</div>
+        <div>
+          <div class="trust-label">15+ Years</div>
+          <div class="trust-sub">Serving Hamilton</div>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">💳</div>
+        <div>
+          <div class="trust-label">All Insurances</div>
+          <div class="trust-sub">Accepted</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-card-stack">
+      <div class="card-float card-float-1">
+        <div class="cf-icon">✅</div>
+        <div>
+          <div class="cf-label">Next availability</div>
+          <div class="cf-sub">Tomorrow · 10:00 AM</div>
+        </div>
+      </div>
+      <div class="card-main">
+        <div class="card-top">
+          <div class="card-avatar">😊</div>
+          <div>
+            <div class="card-name">Sarah M.</div>
+            <div class="card-sub">Hamilton, ON · Verified Patient</div>
+          </div>
+        </div>
+        <div class="card-body">"Finally a dentist where I don't feel anxious. Dr. Chen and the team are incredibly gentle. My kids actually look forward to their appointments now!"</div>
+        <div class="card-stars">★★★★★</div>
+        <div class="card-date">3 weeks ago</div>
+      </div>
+      <div class="card-float card-float-2">
+        <div class="cf-icon">🌐</div>
+        <div>
+          <div class="cf-label">Bilingual Staff</div>
+          <div class="cf-sub">English & Spanish</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="sec-top">
+    <div class="sec-pill">What we offer</div>
+    <div class="sec-title">Complete care for<br>every <em>smile</em></div>
+    <div class="sec-sub">From routine cleanings to full smile makeovers — everything under one roof.</div>
+  </div>
+  <div class="services-grid">
+    <div class="srv-card">
+      <div class="srv-icon">🔍</div>
+      <div class="srv-name">Exam & Cleaning</div>
+      <div class="srv-desc">Comprehensive oral exam, digital X-rays and professional cleaning. Recommended every 6 months.</div>
+      <div class="srv-price">From $120 · Most insurance covered</div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-icon">🪥</div>
+      <div class="srv-name">Teeth Whitening</div>
+      <div class="srv-desc">Professional in-office whitening treatment. Up to 8 shades brighter in a single 90-minute session.</div>
+      <div class="srv-price">From $299 CAD</div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-icon">😁</div>
+      <div class="srv-name">Invisalign®</div>
+      <div class="srv-desc">Clear aligners for straighter teeth — no metal, no discomfort. Free consultation included.</div>
+      <div class="srv-price">From $3,500 CAD · Financing available</div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-icon">🦷</div>
+      <div class="srv-name">Dental Implants</div>
+      <div class="srv-desc">Permanent tooth replacement that looks and feels natural. Titanium implants with porcelain crowns.</div>
+      <div class="srv-price">From $2,800 CAD per implant</div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-icon">👶</div>
+      <div class="srv-name">Pediatric Dentistry</div>
+      <div class="srv-desc">Kid-friendly environment with gentle care. We make first dental visits fun, not scary.</div>
+      <div class="srv-price">From $95 CAD · Children welcome</div>
+    </div>
+    <div class="srv-card">
+      <div class="srv-icon">🚨</div>
+      <div class="srv-name">Emergency Dental</div>
+      <div class="srv-desc">Same-day emergency appointments available. Toothache, broken tooth, or lost crown — we've got you.</div>
+      <div class="srv-price">Call immediately · (905) 555-0155</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why" id="why">
+  <div class="why-left">
+    <div class="sec-pill" style="background:rgba(199,213,250,0.1);border-color:rgba(199,213,250,0.2);color:var(--blue-mid)">Why BrightSmile</div>
+    <div class="sec-title">Care you can<br>actually <em>trust.</em></div>
+    <p class="why-desc">We're not a corporate dental chain. We're a family practice that has served Hamilton for over 15 years. Every patient is treated like a neighbour, because most of you are.</p>
+    <div class="why-stats">
+      <div class="w-stat">
+        <div class="w-num">2,000<span>+</span></div>
+        <div class="w-label">Patients treated</div>
+      </div>
+      <div class="w-stat">
+        <div class="w-num">15<span>yr</span></div>
+        <div class="w-label">In Hamilton</div>
+      </div>
+      <div class="w-stat">
+        <div class="w-num">4.9<span>★</span></div>
+        <div class="w-label">Google rating</div>
+      </div>
+      <div class="w-stat">
+        <div class="w-num">2<span></span></div>
+        <div class="w-label">Languages spoken</div>
+      </div>
+    </div>
+  </div>
+  <div class="why-right">
+    <div class="why-feat">
+      <div class="feat-ico">🔬</div>
+      <div>
+        <div class="feat-title">Modern Technology</div>
+        <div class="feat-desc">Digital X-rays, intraoral cameras and same-day crowns. Less time in the chair, better results.</div>
+      </div>
+    </div>
+    <div class="why-feat">
+      <div class="feat-ico">😌</div>
+      <div>
+        <div class="feat-title">Anxiety-Free Environment</div>
+        <div class="feat-desc">We offer sedation dentistry for patients with dental anxiety. Your comfort is our priority.</div>
+      </div>
+    </div>
+    <div class="why-feat">
+      <div class="feat-ico">🗣️</div>
+      <div>
+        <div class="feat-title">Bilingual Team</div>
+        <div class="feat-desc">Our staff speaks English and Spanish fluently. Explain your concerns in the language you're most comfortable with.</div>
+      </div>
+    </div>
+    <div class="why-feat">
+      <div class="feat-ico">💳</div>
+      <div>
+        <div class="feat-title">All Major Insurances</div>
+        <div class="feat-desc">We direct bill to Sun Life, Manulife, Blue Cross, Great-West Life and most major providers.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="book">
+  <div class="sec-pill">Ready to visit?</div>
+  <div class="sec-title" style="color:var(--ink)">Book your <em>appointment</em></div>
+  <p class="booking-sub">New patients welcome. Same-day appointments often available. Call, text or chat with us below.</p>
+  <div class="booking-options">
+    <a href="tel:+19055550155" class="book-opt">
+      <div class="bo-icon">📞</div>
+      <div>
+        <div class="bo-label">(905) 555-0155</div>
+        <div class="bo-sub">Call us anytime</div>
+      </div>
+    </a>
+    <a href="https://wa.me/19055550155" class="book-opt">
+      <div class="bo-icon">💬</div>
+      <div>
+        <div class="bo-label">WhatsApp</div>
+        <div class="bo-sub">Text us in English or Spanish</div>
+      </div>
+    </a>
+    <div class="book-opt" onclick="openChat()">
+      <div class="bo-icon">🤖</div>
+      <div>
+        <div class="bo-label">Chat with AI</div>
+        <div class="bo-sub">Ask questions instantly</div>
+      </div>
+    </div>
+  </div>
+  <div class="insurance-note">
+    🏥 We accept Sun Life · Manulife · Blue Cross · Great-West Life · and more
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <a href="#" class="f-logo">
+      <div class="f-logo-icon">🦷</div>
+      <div class="f-logo-text">BrightSmile Dental</div>
+    </a>
+    <div class="f-info" style="margin-top:.6rem">
+      321 Main St W, Hamilton ON · <a href="tel:+19055550155">(905) 555-0155</a><br>
+      Mon–Thu 8am–6pm · Fri 8am–4pm · Sat by appointment
+    </div>
+  </div>
+  <div class="f-credit">
+    Website by <a href="https://foundryai.live">Foundry AI</a>
+  </div>
+</footer>
+
+<!-- ════════ CHATBOT ════════ -->
+<button id="chat-toggle" onclick="toggleChat()">
+  <svg class="ico ico-chat" viewBox="0 0 24 24" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+  <svg class="ico ico-close" viewBox="0 0 24 24" fill="white"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+</button>
+
+<div id="chat-window">
+  <div class="c-header">
+    <div class="c-avatar">🦷</div>
+    <div>
+      <div class="c-name">Dr. Bot — BrightSmile Assistant</div>
+      <div class="c-status"><span class="sdot"></span> Online · Ask me anything</div>
+    </div>
+  </div>
+  <div id="c-msgs"></div>
+  <div class="c-quick" id="qwrap">
+    <button class="qb" onclick="sq('Are you accepting new patients?')">New Patients</button>
+    <button class="qb" onclick="sq('What does a cleaning cost?')">Pricing</button>
+    <button class="qb" onclick="sq('Do you accept my insurance?')">Insurance</button>
+    <button class="qb" onclick="sq('¿Hablan español?')">Español</button>
+  </div>
+  <div class="c-bar">
+    <input id="c-input" type="text" placeholder="Ask about services, insurance, booking..." autocomplete="off" onkeydown="if(event.key==='Enter')send()"/>
+    <button id="c-send" onclick="send()">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+const SYS = `You are "Dr. Bot", the virtual assistant for BrightSmile Dental in Hamilton, Ontario, Canada.
+
+CLINIC INFO:
+- Name: BrightSmile Dental
+- Address: 321 Main St W, Hamilton ON
+- Phone: (905) 555-0155
+- WhatsApp: (905) 555-0155
+- Hours: Monday–Thursday 8am–6pm | Friday 8am–4pm | Saturday by appointment | Sunday closed
+- Languages: English and Spanish
+- Currently accepting new patients
+
+SERVICES & PRICES:
+- Exam & Cleaning: from $120 (most insurance covered)
+- Teeth Whitening: from $299
+- Invisalign: from $3,500 (financing available, free consultation)
+- Dental Implants: from $2,800 per implant
+- Pediatric/Kids: from $95
+- Emergency: same-day appointments available — call immediately
+- Fillings: from $150
+- Crowns: from $800
+
+INSURANCE:
+- We direct bill to: Sun Life, Manulife, Blue Cross, Great-West Life, Canada Life
+- We accept most major dental insurance plans
+- Uninsured patients: payment plans available
+
+BOOKING:
+- Call (905) 555-0155 or WhatsApp
+- New patients always welcome
+- Same-day emergency appointments often available
+- Sedation dentistry available for anxious patients
+
+YOUR PERSONALITY:
+- Professional, warm, reassuring — like a friendly receptionist
+- Never give specific medical diagnoses or treatment advice
+- Always recommend they call or come in for a proper assessment
+- Reply in the language the patient writes in (English or Spanish)
+- Keep replies concise: 2-3 sentences max
+- For emergencies, always say: call (905) 555-0155 immediately
+- Use 🦷 emoji occasionally`;
+
+let msgs=[], open=false;
+function openChat(){if(!open)toggleChat();}
+function toggleChat(){
+  open=!open;
+  document.getElementById('chat-window').classList.toggle('open',open);
+  document.querySelector('.ico-chat').style.display=open?'none':'block';
+  document.querySelector('.ico-close').style.display=open?'block':'none';
+  if(open&&msgs.length===0)
+    setTimeout(()=>addBot("Hi! I'm Dr. Bot 🦷 I can help with questions about our services, pricing, insurance, or booking. What can I help you with?"),300);
+}
+function sq(t){document.getElementById('c-input').value=t;send();}
+function addBot(t){const d=document.createElement('div');d.className='msg bot';d.textContent=t;document.getElementById('c-msgs').appendChild(d);sc();}
+function addUser(t){const d=document.createElement('div');d.className='msg user';d.textContent=t;document.getElementById('c-msgs').appendChild(d);sc();}
+function addTyp(){const d=document.createElement('div');d.className='msg typing';d.id='typ';d.innerHTML='<div class="dots"><span></span><span></span><span></span></div>';document.getElementById('c-msgs').appendChild(d);sc();}
+function remTyp(){const t=document.getElementById('typ');if(t)t.remove();}
+function sc(){const m=document.getElementById('c-msgs');m.scrollTop=m.scrollHeight;}
+async function send(){
+  const inp=document.getElementById('c-input');
+  const text=inp.value.trim();if(!text)return;
+  document.getElementById('qwrap').style.display='none';
+  addUser(text);inp.value='';
+  msgs.push({role:'user',content:text});
+  addTyp();
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':'TU_API_KEY_AQUI',
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-haiku-4-5-20251001',
+        max_tokens:250,
+        system:SYS,
+        messages:msgs
+      })
+    });
+    const data=await res.json();
+    if(data.error)throw new Error(data.error.message);
+    const reply=data.content[0].text;
+    msgs.push({role:'assistant',content:reply});
+    remTyp();addBot(reply);
+  }catch(e){
+    remTyp();
+    addBot('Sorry, I had a technical hiccup. Please call us at (905) 555-0155 🦷');
+  }
+}
+</script>
+</body>
+</html>

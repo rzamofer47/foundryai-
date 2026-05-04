@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bella & Co. — Salón de Belleza Hamilton</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* ── RESET & BASE ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #FAF7F2;
+    --warm:  #F2EAD8;
+    --rose:  #C9A882;
+    --rose-dark: #8B6A42;
+    --ink:   #1A1612;
+    --muted: #7A6E64;
+    --chat-bg: #FFFDF9;
+    --radius: 2px;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,130,0.2);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: .08em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--rose); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: .8rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--rose-dark); }
+  .nav-cta {
+    background: var(--ink);
+    color: var(--cream) !important;
+    padding: .55rem 1.4rem;
+    font-size: .75rem !important;
+    letter-spacing: .1em !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background .2s !important;
+  }
+  .nav-cta:hover { background: var(--rose-dark) !important; color: var(--cream) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 3rem 5rem 5rem;
+  }
+  .hero-eyebrow {
+    font-size: .72rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 2.5rem;
+    height: 1px;
+    background: var(--rose);
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.12;
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--rose-dark);
+  }
+  .hero-desc {
+    font-size: .95rem;
+    color: var(--muted);
+    max-width: 26rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: .7rem;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 1rem 2rem;
+    font-size: .8rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background .25s, transform .2s;
+    cursor: pointer;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-primary:hover { background: var(--rose-dark); transform: translateY(-1px); }
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: .7rem;
+    background: transparent;
+    color: var(--ink);
+    padding: 1rem 2rem;
+    font-size: .8rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid rgba(26,22,18,0.3);
+    transition: border-color .25s, background .25s;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-outline:hover { border-color: var(--rose); background: var(--warm); }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+    background: var(--warm);
+  }
+  .hero-img-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 60%, rgba(201,168,130,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(242,234,216,0.6) 0%, transparent 50%);
+  }
+  .hero-visual {
+    position: absolute; inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .hero-circle-outer {
+    width: 340px; height: 340px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,130,0.4);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    animation: slowspin 30s linear infinite;
+  }
+  @keyframes slowspin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  .hero-circle-inner {
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #e8d5be, #c9a882);
+    display: flex; align-items: center; justify-content: center;
+    animation: slowspin 30s linear infinite reverse;
+  }
+  .hero-circle-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: var(--cream);
+    text-align: center;
+    line-height: 1.1;
+  }
+  .hero-circle-text span { display: block; font-size: 1rem; letter-spacing: .15em; text-transform: uppercase; margin-top: .3rem; }
+  .hero-dot {
+    position: absolute;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--rose);
+  }
+  .hero-dot:nth-child(1) { top: 10px; left: 50%; transform: translateX(-50%); }
+  .hero-dot:nth-child(2) { bottom: 10px; left: 50%; transform: translateX(-50%); }
+  .hero-dot:nth-child(3) { left: 10px; top: 50%; transform: translateY(-50%); }
+  .hero-dot:nth-child(4) { right: 10px; top: 50%; transform: translateY(-50%); }
+
+  .hero-badges {
+    display: flex; gap: .8rem; position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    flex-wrap: wrap; justify-content: center;
+  }
+  .badge {
+    background: rgba(250,247,242,0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(201,168,130,0.3);
+    padding: .4rem 1rem;
+    font-size: .72rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* ── STRIP ── */
+  .strip {
+    background: var(--ink);
+    padding: 1.2rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .strip-inner {
+    display: inline-flex;
+    gap: 3rem;
+    animation: marquee 20s linear infinite;
+  }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .strip span {
+    font-size: .72rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(250,247,242,0.5);
+  }
+  .strip-dot { color: var(--rose) !important; }
+
+  /* ── SERVICES ── */
+  .services {
+    padding: 7rem 5rem;
+  }
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .section-eyebrow {
+    font-size: .72rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: .8rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--ink);
+  }
+  .section-title em { font-style: italic; color: var(--rose-dark); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: rgba(201,168,130,0.2);
+    border: 1.5px solid rgba(201,168,130,0.2);
+  }
+  .service-card {
+    background: var(--cream);
+    padding: 2.5rem;
+    transition: background .25s;
+    cursor: default;
+  }
+  .service-card:hover { background: var(--warm); }
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: rgba(201,168,130,0.3);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: .5rem;
+  }
+  .service-desc { font-size: .85rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.2rem; }
+  .service-price {
+    font-size: .8rem;
+    letter-spacing: .08em;
+    color: var(--rose-dark);
+    font-weight: 500;
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 60vh;
+  }
+  .about-left {
+    background: var(--ink);
+    padding: 6rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .about-left .section-eyebrow { color: var(--rose); }
+  .about-left .section-title { color: var(--cream); }
+  .about-desc { font-size: .9rem; color: rgba(250,247,242,0.6); line-height: 1.85; margin: 1.5rem 0 2.5rem; max-width: 28rem; }
+  .stats { display: flex; gap: 3rem; margin-top: 2rem; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: var(--rose);
+    line-height: 1;
+  }
+  .stat-label { font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(250,247,242,0.4); margin-top: .3rem; }
+  .about-right {
+    background: var(--warm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .about-pattern {
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 20px,
+      rgba(201,168,130,0.08) 20px,
+      rgba(201,168,130,0.08) 21px
+    );
+  }
+  .about-quote {
+    position: relative;
+    max-width: 26rem;
+    text-align: center;
+  }
+  .quote-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 8rem;
+    line-height: .7;
+    color: rgba(201,168,130,0.2);
+    margin-bottom: .5rem;
+  }
+  .quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .quote-author { font-size: .75rem; letter-spacing: .15em; text-transform: uppercase; color: var(--rose); margin-top: 1.5rem; }
+
+  /* ── BOOKING ── */
+  .booking {
+    padding: 7rem 5rem;
+    text-align: center;
+    background: var(--warm);
+  }
+  .booking .section-title { margin-bottom: 1rem; }
+  .booking-desc { font-size: .95rem; color: var(--muted); margin-bottom: 3rem; }
+  .booking-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    max-width: 700px;
+    margin: 0 auto 2.5rem;
+  }
+  .book-item {
+    background: var(--cream);
+    border: 1px solid rgba(201,168,130,0.3);
+    padding: 1.5rem;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+  }
+  .book-item:hover { border-color: var(--rose); background: #fff; }
+  .book-item-name { font-size: .85rem; font-weight: 500; margin-bottom: .3rem; }
+  .book-item-time { font-size: .75rem; color: var(--muted); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(250,247,242,0.5);
+    padding: 3rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--cream);
+    font-weight: 400;
+  }
+  .footer-info { font-size: .78rem; letter-spacing: .05em; line-height: 1.8; }
+  .footer-info a { color: var(--rose); text-decoration: none; }
+  .footer-credit { font-size: .7rem; opacity: .4; }
+
+  /* ─────────────────────────────
+     CHATBOT
+  ───────────────────────────── */
+  #chat-toggle {
+    position: fixed;
+    bottom: 2rem; right: 2rem;
+    z-index: 200;
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    background: var(--ink);
+    border: none;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 24px rgba(26,22,18,0.25);
+    transition: background .2s, transform .2s;
+  }
+  #chat-toggle:hover { background: var(--rose-dark); transform: scale(1.05); }
+  #chat-toggle svg { width: 24px; height: 24px; fill: var(--cream); transition: opacity .2s; }
+  #chat-toggle .icon-close { display: none; }
+
+  #chat-window {
+    position: fixed;
+    bottom: 5.5rem; right: 2rem;
+    z-index: 200;
+    width: 360px;
+    max-height: 520px;
+    background: var(--chat-bg);
+    border: 1px solid rgba(201,168,130,0.3);
+    box-shadow: 0 8px 40px rgba(26,22,18,0.15);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+    pointer-events: none;
+    transition: opacity .25s, transform .25s;
+  }
+  #chat-window.open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+  }
+  .chat-header {
+    background: var(--ink);
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+  }
+  .chat-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--rose);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: var(--cream);
+    flex-shrink: 0;
+  }
+  .chat-header-info { flex: 1; }
+  .chat-header-name { font-size: .85rem; font-weight: 500; color: var(--cream); }
+  .chat-header-status { font-size: .7rem; color: rgba(250,247,242,0.5); display: flex; align-items: center; gap: .4rem; }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #4CAF50; display: inline-block; }
+
+  #chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    min-height: 0;
+  }
+  .msg {
+    max-width: 80%;
+    padding: .65rem 1rem;
+    font-size: .85rem;
+    line-height: 1.55;
+    border-radius: var(--radius);
+    animation: msgIn .2s ease;
+  }
+  @keyframes msgIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .msg.bot {
+    background: var(--warm);
+    color: var(--ink);
+    align-self: flex-start;
+    border-bottom-left-radius: 0;
+  }
+  .msg.user {
+    background: var(--ink);
+    color: var(--cream);
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+  }
+  .msg.typing {
+    background: var(--warm);
+    align-self: flex-start;
+    padding: .8rem 1rem;
+  }
+  .typing-dots { display: flex; gap: 4px; align-items: center; height: 14px; }
+  .typing-dots span {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--rose);
+    animation: bounce 1.2s infinite;
+  }
+  .typing-dots span:nth-child(2) { animation-delay: .2s; }
+  .typing-dots span:nth-child(3) { animation-delay: .4s; }
+  @keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
+
+  .chat-quick {
+    padding: .5rem 1.2rem;
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(201,168,130,0.15);
+  }
+  .quick-btn {
+    font-size: .72rem;
+    padding: .35rem .8rem;
+    border: 1px solid rgba(201,168,130,0.4);
+    background: transparent;
+    color: var(--rose-dark);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    border-radius: 99px;
+    transition: background .15s, border-color .15s;
+    white-space: nowrap;
+  }
+  .quick-btn:hover { background: var(--warm); border-color: var(--rose); }
+
+  .chat-input-row {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .8rem 1rem;
+    border-top: 1px solid rgba(201,168,130,0.15);
+  }
+  #chat-input {
+    flex: 1;
+    border: 1px solid rgba(201,168,130,0.3);
+    background: var(--cream);
+    padding: .55rem .9rem;
+    font-size: .85rem;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    outline: none;
+    border-radius: var(--radius);
+    transition: border-color .2s;
+  }
+  #chat-input:focus { border-color: var(--rose); }
+  #chat-input::placeholder { color: rgba(122,110,100,0.5); }
+  #chat-send {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--ink);
+    border: none;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background .2s;
+  }
+  #chat-send:hover { background: var(--rose-dark); }
+  #chat-send svg { width: 16px; height: 16px; fill: none; stroke: var(--cream); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 4rem 1.5rem 2rem; }
+    .hero-right { height: 50vw; min-height: 280px; }
+    .hero-circle-outer { width: 220px; height: 220px; }
+    .hero-circle-inner { width: 165px; height: 165px; }
+    .hero-circle-text { font-size: 1.8rem; }
+    .services { padding: 4rem 1.5rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .about { grid-template-columns: 1fr; }
+    .booking { padding: 4rem 1.5rem; }
+    footer { padding: 2rem 1.5rem; }
+    #chat-window { width: calc(100vw - 2rem); right: 1rem; bottom: 5rem; }
+    #chat-toggle { right: 1rem; bottom: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Bella <span>&</span> Co.</a>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#reservar">Reservar</a></li>
+    <li><a href="#reservar" class="nav-cta">Cita Online</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Salón de Belleza · Hamilton, Ontario</div>
+    <h1>Tu belleza,<br><em>redefinida</em><br>con arte.</h1>
+    <p class="hero-desc">Expertos en coloración, corte y tratamientos capilares. Atendemos en inglés y español. Más de 200 clientas satisfechas en Hamilton.</p>
+    <div class="hero-btns">
+      <a href="#reservar" class="btn-primary">Reservar cita →</a>
+      <a href="#servicios" class="btn-outline">Ver servicios</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-bg"></div>
+    <div class="hero-visual">
+      <div class="hero-circle-outer">
+        <div class="hero-dot"></div>
+        <div class="hero-dot"></div>
+        <div class="hero-dot"></div>
+        <div class="hero-dot"></div>
+        <div class="hero-circle-inner">
+          <div class="hero-circle-text">
+            B&C
+            <span>Since 2019</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-badges">
+      <div class="badge">✦ Coloración Premium</div>
+      <div class="badge">✦ Inglés · Español</div>
+      <div class="badge">✦ Lun–Sáb 9am–7pm</div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-inner">
+    <span>Coloración</span><span class="strip-dot">✦</span>
+    <span>Corte & Estilo</span><span class="strip-dot">✦</span>
+    <span>Tratamientos Capilares</span><span class="strip-dot">✦</span>
+    <span>Uñas</span><span class="strip-dot">✦</span>
+    <span>Depilación</span><span class="strip-dot">✦</span>
+    <span>Maquillaje</span><span class="strip-dot">✦</span>
+    <span>Hamilton Ontario</span><span class="strip-dot">✦</span>
+    <span>Coloración</span><span class="strip-dot">✦</span>
+    <span>Corte & Estilo</span><span class="strip-dot">✦</span>
+    <span>Tratamientos Capilares</span><span class="strip-dot">✦</span>
+    <span>Uñas</span><span class="strip-dot">✦</span>
+    <span>Depilación</span><span class="strip-dot">✦</span>
+    <span>Maquillaje</span><span class="strip-dot">✦</span>
+    <span>Hamilton Ontario</span><span class="strip-dot">✦</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="servicios">
+  <div class="section-header">
+    <div>
+      <div class="section-eyebrow">Lo que ofrecemos</div>
+      <div class="section-title">Servicios que<br><em>transforman</em></div>
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-name">Coloración & Balayage</div>
+      <div class="service-desc">Técnicas modernas de color: balayage, highlights, ombré, y coloración completa. Usamos productos Wella y Schwarzkopf.</div>
+      <div class="service-price">Desde $85 CAD</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <div class="service-name">Corte & Estilo</div>
+      <div class="service-desc">Cortes personalizados para tu tipo de rostro y cabello. Incluye lavado, acondicionador profundo y secado profesional.</div>
+      <div class="service-price">Desde $55 CAD</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-name">Tratamientos</div>
+      <div class="service-desc">Keratina brasileña, hidratación profunda, reconstrucción capilar. Resultados desde la primera sesión.</div>
+      <div class="service-price">Desde $120 CAD</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <div class="service-name">Uñas</div>
+      <div class="service-desc">Manicure, pedicure, gel, acrílicas y nail art. Atención para novias y grupos con cita previa.</div>
+      <div class="service-price">Desde $35 CAD</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <div class="service-name">Depilación</div>
+      <div class="service-desc">Depilación con cera para rostro y cuerpo. Resultados duraderos en un ambiente cómodo y privado.</div>
+      <div class="service-price">Desde $15 CAD</div>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <div class="service-name">Maquillaje</div>
+      <div class="service-desc">Maquillaje para ocasiones especiales: bodas, quinces, graduaciones y eventos corporativos.</div>
+      <div class="service-price">Desde $75 CAD</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="nosotros">
+  <div class="about-left">
+    <div class="section-eyebrow">Nuestra historia</div>
+    <div class="section-title" style="color:var(--cream)">Más de 5 años<br><em style="color:var(--rose)">embelleciendo</em><br>Hamilton</div>
+    <div class="about-desc">Somos un equipo apasionado que atiende en inglés y español. Creemos que cada mujer merece sentirse extraordinaria, sin importar su presupuesto. Tu satisfacción es nuestra prioridad — si no quedas feliz, lo arreglamos.</div>
+    <div class="stats">
+      <div>
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Clientas felices</div>
+      </div>
+      <div>
+        <div class="stat-num">5★</div>
+        <div class="stat-label">En Google</div>
+      </div>
+      <div>
+        <div class="stat-num">2</div>
+        <div class="stat-label">Idiomas</div>
+      </div>
+    </div>
+  </div>
+  <div class="about-right">
+    <div class="about-pattern"></div>
+    <div class="about-quote">
+      <div class="quote-mark">"</div>
+      <div class="quote-text">La belleza no es un privilegio, es un arte que merece ser accesible para todas.</div>
+      <div class="quote-author">— María López, Fundadora</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="reservar">
+  <div class="section-eyebrow">Agenda tu visita</div>
+  <div class="section-title">¿Lista para tu<br><em>transformación</em>?</div>
+  <p class="booking-desc">Selecciona un servicio para comenzar. También puedes hablar con nuestra asistente IA abajo →</p>
+  <div class="booking-grid">
+    <div class="book-item" onclick="sendToChat('Quiero reservar una cita de Coloración')">
+      <div class="book-item-name">Coloración & Balayage</div>
+      <div class="book-item-time">2–3 horas · Desde $85</div>
+    </div>
+    <div class="book-item" onclick="sendToChat('Quiero reservar un corte y estilo')">
+      <div class="book-item-name">Corte & Estilo</div>
+      <div class="book-item-time">1 hora · Desde $55</div>
+    </div>
+    <div class="book-item" onclick="sendToChat('Quiero información sobre tratamientos de keratina')">
+      <div class="book-item-name">Tratamientos</div>
+      <div class="book-item-time">2–4 horas · Desde $120</div>
+    </div>
+    <div class="book-item" onclick="sendToChat('Quiero reservar una cita de uñas')">
+      <div class="book-item-name">Uñas</div>
+      <div class="book-item-time">45 min · Desde $35</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <a href="tel:+19055550123" class="btn-primary">📞 (905) 555-0123</a>
+    <a href="https://wa.me/19055550123" class="btn-outline">WhatsApp</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">Bella & Co.</div>
+    <div class="footer-info" style="margin-top:.5rem">
+      123 King St W, Hamilton ON · <a href="tel:+19055550123">(905) 555-0123</a><br>
+      Lun–Vie 9am–7pm · Sáb 9am–5pm
+    </div>
+  </div>
+  <div class="footer-credit">Sitio web por <a href="https://foundryai.live" style="color:var(--rose);text-decoration:none">Foundry AI</a></div>
+</footer>
+
+<!-- ═══════════════════════════════════
+     CHATBOT (Claude API integrado)
+══════════════════════════════════ -->
+<button id="chat-toggle" onclick="toggleChat()" aria-label="Abrir chat">
+  <svg class="icon-chat" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+  <svg class="icon-close" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="var(--cream)"/></svg>
+</button>
+
+<div id="chat-window" role="dialog" aria-label="Asistente de Bella &amp; Co.">
+  <div class="chat-header">
+    <div class="chat-avatar">B</div>
+    <div class="chat-header-info">
+      <div class="chat-header-name">Bella — Asistente Virtual</div>
+      <div class="chat-header-status"><span class="status-dot"></span>En línea ahora</div>
+    </div>
+  </div>
+
+  <div id="chat-messages"></div>
+
+  <div class="chat-quick" id="quick-replies">
+    <button class="quick-btn" onclick="sendQuick('¿Cuáles son sus servicios?')">Servicios</button>
+    <button class="quick-btn" onclick="sendQuick('¿Cuánto cuesta el balayage?')">Precios</button>
+    <button class="quick-btn" onclick="sendQuick('¿Cómo reservo una cita?')">Reservar</button>
+    <button class="quick-btn" onclick="sendQuick('¿Hablan español?')">Español</button>
+  </div>
+
+  <div class="chat-input-row">
+    <input id="chat-input" type="text" placeholder="Escribe tu pregunta..." autocomplete="off"
+      onkeydown="if(event.key==='Enter') sendMessage()" />
+    <button id="chat-send" onclick="sendMessage()" aria-label="Enviar">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+// ── CHAT STATE ──
+const SYSTEM_PROMPT = `Eres "Bella", la asistente virtual del Salón de Belleza Bella & Co. en Hamilton, Ontario, Canadá.
+
+INFORMACIÓN DEL SALÓN:
+- Nombre: Bella & Co.
+- Dirección: 123 King St W, Hamilton ON
+- Teléfono: (905) 555-0123
+- WhatsApp: (905) 555-0123
+- Horario: Lunes a Viernes 9am–7pm, Sábados 9am–5pm, Domingos cerrado
+- Idiomas: Inglés y Español
+- Google: 5 estrellas
+
+SERVICIOS Y PRECIOS:
+- Coloración completa: desde $85 CAD (2–3 horas)
+- Balayage/Highlights: desde $110 CAD (2–4 horas)
+- Corte de cabello: desde $55 CAD (1 hora)
+- Corte + estilo: desde $75 CAD
+- Keratina brasileña: desde $180 CAD (3–4 horas)
+- Hidratación profunda: desde $60 CAD
+- Manicure: desde $35 CAD
+- Pedicure: desde $45 CAD
+- Uñas gel: desde $55 CAD
+- Depilación cejas: $15 CAD
+- Depilación labio: $12 CAD
+- Maquillaje social: desde $75 CAD
+- Maquillaje de novia: desde $150 CAD
+
+POLÍTICA:
+- Se requiere depósito del 20% para citas de más de $100
+- Cancelaciones con 24h de anticipación sin cargo
+- Aceptamos: efectivo, tarjeta, e-Transfer
+
+TU PERSONALIDAD:
+- Cálida, profesional y amigable
+- Respondes en el idioma que te escriban (español o inglés)
+- Eres concisa — máximo 3 oraciones por respuesta
+- Cuando alguien quiere reservar, les das el teléfono y WhatsApp
+- No inventes información que no está arriba
+- Usa emojis ocasionalmente para ser más amigable ✨`;
+
+let messages = [];
+let chatOpen = false;
+
+// ── TOGGLE ──
+function toggleChat() {
+  chatOpen = !chatOpen;
+  const win = document.getElementById('chat-window');
+  const toggle = document.getElementById('chat-toggle');
+  win.classList.toggle('open', chatOpen);
+  toggle.querySelector('.icon-chat').style.display = chatOpen ? 'none' : 'block';
+  toggle.querySelector('.icon-close').style.display = chatOpen ? 'block' : 'none';
+  if (chatOpen && messages.length === 0) {
+    setTimeout(() => addBot('¡Hola! Soy Bella, tu asistente del salón 💇‍♀️ ¿En qué te puedo ayudar hoy?'), 300);
+  }
+}
+
+// ── SEND FROM PAGE ──
+function sendToChat(text) {
+  if (!chatOpen) toggleChat();
+  setTimeout(() => { document.getElementById('chat-input').value = text; sendMessage(); }, 400);
+}
+function sendQuick(text) {
+  document.getElementById('chat-input').value = text;
+  sendMessage();
+}
+
+// ── ADD MESSAGES ──
+function addBot(text) {
+  const el = addMsg(text, 'bot');
+  return el;
+}
+function addUser(text) { addMsg(text, 'user'); }
+function addMsg(text, who) {
+  const div = document.createElement('div');
+  div.className = 'msg ' + who;
+  div.textContent = text;
+  document.getElementById('chat-messages').appendChild(div);
+  scrollBottom();
+  return div;
+}
+function addTyping() {
+  const div = document.createElement('div');
+  div.className = 'msg typing';
+  div.id = 'typing-indicator';
+  div.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+  document.getElementById('chat-messages').appendChild(div);
+  scrollBottom();
+}
+function removeTyping() {
+  const t = document.getElementById('typing-indicator');
+  if (t) t.remove();
+}
+function scrollBottom() {
+  const m = document.getElementById('chat-messages');
+  m.scrollTop = m.scrollHeight;
+}
+
+// ── SEND MESSAGE ──
+async function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+
+  // Ocultar quick replies después del primer mensaje
+  document.getElementById('quick-replies').style.display = 'none';
+
+  addUser(text);
+  input.value = '';
+  messages.push({ role: 'user', content: text });
+
+  addTyping();
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': 'TU_API_KEY_AQUI',           // ← Reemplaza con tu API key
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',        // Haiku = más barato para chatbots
+        max_tokens: 300,
+        system: SYSTEM_PROMPT,
+        messages: messages
+      })
+    });
+
+    const data = await response.json();
+
+    if (data.error) throw new Error(data.error.message);
+
+    const reply = data.content[0].text;
+    messages.push({ role: 'assistant', content: reply });
+
+    removeTyping();
+    addBot(reply);
+
+  } catch (err) {
+    removeTyping();
+    console.error(err);
+    addBot('Lo siento, tuve un problema técnico. Por favor llámanos al (905) 555-0123 📞');
+  }
+}
+</script>
+</body>
+</html>
