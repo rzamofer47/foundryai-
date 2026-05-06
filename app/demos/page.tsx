@@ -130,6 +130,37 @@ export default function DemosPage() {
               </article>
             </li>
           ))}
+          <li key="design-your-website">
+            <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-foundry-section/50 shadow-card backdrop-blur-sm transition hover:border-violet-400/35 hover:shadow-glow hover:ring-1 hover:ring-violet-500/25">
+              <div className="relative flex h-36 w-full items-center justify-center overflow-hidden bg-gradient-to-br from-violet-900/80 to-foundry-section sm:h-40">
+                <Image
+                  src="/demos/design-your-website.png"
+                  alt="Collaborative design workspace"
+                  fill
+                  className="object-cover object-center"
+                  unoptimized
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-black/30" />
+              </div>
+              <div className="flex flex-1 flex-col border-t border-white/10 bg-foundry-base/40 p-5 sm:p-6">
+                <h2 className="text-lg font-bold leading-snug text-white sm:text-xl">
+                  Design your own website
+                </h2>
+                <p className="mt-3 flex-1 text-sm font-medium leading-relaxed text-white/75">
+                  We&apos;ll help you.
+                </p>
+                <div className="mt-6">
+                  <Link
+                    href="/#contact"
+                    className="inline-flex w-full items-center justify-center rounded-full border-2 border-accent bg-accent/10 py-3 text-sm font-bold text-accent transition hover:bg-accent hover:text-foundry-base"
+                  >
+                    Get in touch
+                  </Link>
+                </div>
+              </div>
+            </article>
+          </li>
         </ul>
 
         <section className="relative mt-20 overflow-hidden rounded-3xl border border-violet-500/25 bg-foundry-section/70 px-6 py-12 text-center shadow-card backdrop-blur-md sm:mt-24 sm:px-10 sm:py-16">
