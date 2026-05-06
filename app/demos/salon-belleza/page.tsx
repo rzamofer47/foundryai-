@@ -89,8 +89,8 @@ export default function SalonBellezaPage() {
         setTimeout(() => {
           const wrap = document.createElement('div')
           wrap.className = 'msg bot'
-          wrap.innerHTML =
-            'Hi! I’m Bella, your salon assistant <span class="hero-emoji-breathe" aria-hidden="true">💇‍♀️</span> How can I help you today?'
+          wrap.textContent =
+            "Hi! I'm Bella, your salon assistant. How can I help you today?"
           root.querySelector('#chat-messages')?.appendChild(wrap)
           scrollBottom()
         }, 300)

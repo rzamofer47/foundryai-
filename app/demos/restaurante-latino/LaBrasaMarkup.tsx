@@ -35,7 +35,14 @@ export default function LaBrasaMarkup() {
         <div className="hero-ring ring-3" />
 
         <div className="hero-dish">
-          <span className="dish-emoji">🫕</span>
+          <img
+            className="dish-photo"
+            src="/demos/restaurante-latino/hero-menu.png"
+            alt="Assorted Latin cuisine dishes"
+            width={320}
+            height={320}
+            decoding="async"
+          />
           <span className="dish-label">Chef&apos;s Special</span>
         </div>
 

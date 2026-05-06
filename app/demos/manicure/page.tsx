@@ -1,12 +1,15 @@
 'use client'
 
 import { useEffect, useMemo } from 'react'
+import Image from 'next/image'
 import { manicureConfig } from '@/lib/chatbot-configs'
 import DemoStickyHeader from '../_components/DemoStickyHeader'
 import { demoHeaderIndustryLine } from '../_lib/demos-config'
 
 const STYLE_ID = 'manicure-demo-inline-css'
 const FONT_LINK_ID = 'manicure-demo-fonts'
+const HERO_IMAGE = '/demos/manicure/nails-0.png'
+const GALLERY_IMAGES = Array.from({ length: 9 }, (_, i) => `/demos/manicure/nails-${i + 1}.png`)
 
 function buildManicureCss(accent: string) {
   return `
@@ -194,6 +197,24 @@ function buildManicureCss(accent: string) {
   overflow: hidden;
 }
 
+#manicure-demo-root .hero-photo {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 212, 105, 0.42),
+    0 0 24px rgba(255, 198, 84, 0.28),
+    0 0 58px rgba(255, 213, 122, 0.2);
+  animation: heroDrift 6.8s ease-in-out infinite;
+}
+
+#manicure-demo-root .hero-photo img {
+  object-fit: cover;
+  object-position: center;
+}
+
 #manicure-demo-root .hero-visual .sw {
   position: absolute;
   border-radius: 50%;
@@ -233,6 +254,16 @@ function buildManicureCss(accent: string) {
   text-transform: uppercase;
   color: var(--fog);
   text-align: right;
+  z-index: 3;
+}
+
+@keyframes heroDrift {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0) scale(1.015);
+  }
 }
 
 #manicure-demo-root .split {
@@ -313,9 +344,13 @@ function buildManicureCss(accent: string) {
 #manicure-demo-root .nail {
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(255, 200, 96, 0.42);
   border-radius: 4px;
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s, box-shadow 0.25s;
+  box-shadow:
+    0 0 0 1px rgba(255, 215, 130, 0.15),
+    0 0 20px rgba(255, 200, 96, 0.2),
+    0 0 44px rgba(255, 215, 140, 0.1);
 }
 
 #manicure-demo-root .nail::after {
@@ -329,7 +364,11 @@ function buildManicureCss(accent: string) {
 
 #manicure-demo-root .nail:hover {
   transform: translateY(-4px);
-  border-color: rgba(155, 123, 140, 0.65);
+  border-color: rgba(255, 218, 142, 0.92);
+  box-shadow:
+    0 0 0 1px rgba(255, 232, 170, 0.24),
+    0 0 26px rgba(255, 212, 112, 0.34),
+    0 0 58px rgba(255, 224, 148, 0.2);
 }
 
 #manicure-demo-root .nail .shine {
@@ -342,6 +381,18 @@ function buildManicureCss(accent: string) {
   background: linear-gradient(90deg, rgba(255,255,255,0.45), transparent);
   opacity: 0.35;
   transform: rotate(-18deg);
+  z-index: 2;
+}
+
+#manicure-demo-root .nail-image {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+#manicure-demo-root .nail-image img {
+  object-fit: cover;
+  object-position: center;
 }
 
 #manicure-demo-root .n1 { grid-column: span 5; grid-row: span 3; background: linear-gradient(160deg, #2a1f24, ${accent}); }
@@ -711,6 +762,9 @@ export default function ManicurePage() {
                   </p>
                 </div>
                 <div className="hero-visual" aria-hidden>
+                  <div className="hero-photo">
+                    <Image src={HERO_IMAGE} alt="Editorial manicure close-up" fill unoptimized priority />
+                  </div>
                   <span className="sw" />
                   <span className="sw" />
                   <div className="arch" />
@@ -742,11 +796,17 @@ export default function ManicurePage() {
           <section id="galeria" className="gallery-section wrap">
             <p className="label">Nail gallery · grid</p>
             <div className="nail-gallery" aria-label="Demo nail gallery">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
+              {GALLERY_IMAGES.map((src, idx) => {
+                const i = idx + 1
+                return (
                 <div key={i} className={`nail n${i}`}>
+                  <div className="nail-image">
+                    <Image src={src} alt={`Nail gallery design ${i}`} fill unoptimized />
+                  </div>
                   <span className="shine" />
                 </div>
-              ))}
+                )
+              })}
             </div>
           </section>
 

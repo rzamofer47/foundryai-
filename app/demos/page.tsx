@@ -1,8 +1,21 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { DEMOS, FILTERS, type DemoFilter } from './_lib/demos-config'
+
+const DEMO_COVER_BY_SLUG: Partial<Record<string, string>> = {
+  barberia: '/demos/barberia/hero-barbershop.png',
+  'clinica-dental': '/demos/clinica-dental/hero-dental.png',
+  'salon-belleza': '/demos/salon-belleza/hero-salon.png',
+  'restaurante-latino': '/demos/restaurante-latino/hero-menu.png',
+  'gym-fitness': '/demos/gym-fitness/hero-athlete.png',
+  'taller-mecanico': '/demos/taller-mecanico/hero-mechanic.png',
+  'boutique-ropa': '/demos/boutique-ropa/hero/hero-dress.png',
+  fotografia: '/demos/fotografia/wedding.png',
+  manicure: '/demos/manicure/nails-0.png',
+}
 
 /** Portfolio index: all demos as cards, same dark purple palette as the marketing site. */
 export default function DemosPage() {
@@ -70,10 +83,26 @@ export default function DemosPage() {
                 <div
                   className={`relative flex h-36 items-center justify-center bg-gradient-to-br sm:h-40 ${demo.color}`}
                 >
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(255,255,255,0.12),transparent_55%)]" />
-                  <span className="relative text-5xl drop-shadow-lg sm:text-6xl" aria-hidden>
-                    {demo.emoji}
-                  </span>
+                  {DEMO_COVER_BY_SLUG[demo.slug] ? (
+                    <>
+                      <Image
+                        src={DEMO_COVER_BY_SLUG[demo.slug]!}
+                        alt={`${demo.name} demo preview`}
+                        fill
+                        className="object-cover"
+                        unoptimized
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                      <div className="absolute inset-0 bg-black/30" />
+                    </>
+                  ) : (
+                    <>
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(255,255,255,0.12),transparent_55%)]" />
+                      <span className="relative text-5xl drop-shadow-lg sm:text-6xl" aria-hidden>
+                        {demo.emoji}
+                      </span>
+                    </>
+                  )}
                 </div>
                 <div className="flex flex-1 flex-col border-t border-white/10 bg-foundry-base/40 p-5 sm:p-6">
                   <h2 className="text-lg font-bold text-white sm:text-xl">{demo.name}</h2>

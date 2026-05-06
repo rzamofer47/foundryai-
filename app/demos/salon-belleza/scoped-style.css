@@ -153,10 +153,22 @@
     background: var(--warm);
   }
 #salon-belleza-root .hero-img-bg {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse at 30% 60%, rgba(201,168,130,0.25) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 20%, rgba(242,234,216,0.6) 0%, transparent 50%);
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-color: var(--warm);
+    background-image:
+      linear-gradient(
+        to bottom,
+        rgba(250, 247, 242, 0.35) 0%,
+        rgba(242, 234, 216, 0.2) 40%,
+        rgba(26, 22, 18, 0.18) 100%
+      ),
+      radial-gradient(ellipse at 30% 60%, rgba(201, 168, 130, 0.2) 0%, transparent 55%),
+      url('/demos/salon-belleza/hero-salon.png');
+    background-size: cover;
+    background-position: center 22%;
+    background-repeat: no-repeat;
   }
 #salon-belleza-root .hero-visual {
     position: absolute; inset: 0;
@@ -642,25 +654,14 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -52%);
+  z-index: 1;
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(14rem, 42vw, 28rem);
   font-weight: 300;
   line-height: 1;
   color: var(--rose);
   opacity: 0.07;
-  z-index: 0;
   user-select: none;
-}
-
-/* Breathing animation on hero accent emoji */
-@keyframes salon-emoji-breathe {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.12); }
-}
-#salon-belleza-root .hero-emoji-breathe {
-  display: inline-block;
-  animation: salon-emoji-breathe 2.8s ease-in-out infinite;
-  margin-left: 0.35rem;
 }
 
 @media (max-width: 900px) {

@@ -36,10 +36,7 @@ export default function SalonBellaMarkup() {
             <br />
             <em>redefined</em>
             <br />
-            with art{' '}
-            <span className="hero-emoji-breathe" aria-hidden="true">
-              💇‍♀️
-            </span>
+            with art
           </h1>
           <p className="hero-desc">
             Experts in colour, cuts, and hair treatments. We serve clients in English and Spanish. Over 200 happy guests
